@@ -40,6 +40,14 @@ public class frame_utama extends javax.swing.JFrame {
         jSeparator5 = new javax.swing.JToolBar.Separator();
         jSeparator6 = new javax.swing.JSeparator();
         jPanel1 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jSeparator8 = new javax.swing.JSeparator();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jSeparator7 = new javax.swing.JSeparator();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -53,6 +61,11 @@ public class frame_utama extends javax.swing.JFrame {
         btn_DataMahasiswa.setFocusable(false);
         btn_DataMahasiswa.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_DataMahasiswa.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btn_DataMahasiswa.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_DataMahasiswaMouseClicked(evt);
+            }
+        });
         jToolBar1.add(btn_DataMahasiswa);
         jToolBar1.add(jSeparator1);
 
@@ -61,6 +74,11 @@ public class frame_utama extends javax.swing.JFrame {
         btn_DataMataKuliah.setFocusable(false);
         btn_DataMataKuliah.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_DataMataKuliah.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btn_DataMataKuliah.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_DataMataKuliahMouseClicked(evt);
+            }
+        });
         jToolBar1.add(btn_DataMataKuliah);
         jToolBar1.add(jSeparator2);
 
@@ -69,6 +87,11 @@ public class frame_utama extends javax.swing.JFrame {
         btn_DataNilai.setFocusable(false);
         btn_DataNilai.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_DataNilai.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btn_DataNilai.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_DataNilaiMouseClicked(evt);
+            }
+        });
         jToolBar1.add(btn_DataNilai);
         jToolBar1.add(jSeparator3);
 
@@ -77,6 +100,11 @@ public class frame_utama extends javax.swing.JFrame {
         btn_SimulasiNilaiAkhir.setFocusable(false);
         btn_SimulasiNilaiAkhir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_SimulasiNilaiAkhir.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btn_SimulasiNilaiAkhir.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_SimulasiNilaiAkhirMouseClicked(evt);
+            }
+        });
         jToolBar1.add(btn_SimulasiNilaiAkhir);
         jToolBar1.add(jSeparator4);
 
@@ -85,18 +113,78 @@ public class frame_utama extends javax.swing.JFrame {
         btn_SimulasiKasus.setFocusable(false);
         btn_SimulasiKasus.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_SimulasiKasus.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btn_SimulasiKasus.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_SimulasiKasusMouseClicked(evt);
+            }
+        });
         jToolBar1.add(btn_SimulasiKasus);
         jToolBar1.add(jSeparator5);
+
+        jLabel2.setIcon(new javax.swing.ImageIcon("F:\\NetBeansProjects\\ProVis\\kemahasiswaan_10119010_10119028\\gambar\\foto rizal.jpg")); // NOI18N
+
+        jLabel3.setIcon(new javax.swing.ImageIcon("F:\\NetBeansProjects\\ProVis\\kemahasiswaan_10119010_10119028\\gambar\\foto imam.jpeg")); // NOI18N
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel1.setText("10119010");
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel4.setText("10119028");
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel5.setText("Rizal Sihombing");
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel6.setText("Maulana Imam Malik");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addComponent(jSeparator8)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel5))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(44, 44, 44)
+                                .addComponent(jLabel6))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(68, 68, 68)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(10, 10, 10)
+                                        .addComponent(jLabel1))
+                                    .addComponent(jLabel3))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(jLabel4)))))
+                .addGap(68, 68, 68))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 149, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jSeparator8, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel4))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel6))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         jMenu1.setText("Aplikasi Kemahasiswaan");
@@ -113,11 +201,9 @@ public class frame_utama extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jSeparator6)
-                .addContainerGap())
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jSeparator7)
+            .addComponent(jSeparator6, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -125,14 +211,62 @@ public class frame_utama extends javax.swing.JFrame {
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 52, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jSeparator7, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btn_DataMahasiswaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_DataMahasiswaMouseClicked
+        // TODO add your handling code here:
+        // deklarasi frame_mahasiswa
+        frame_mahasiswa frame_mahasiswa = new frame_mahasiswa();
+        frame_mahasiswa.setVisible(true);
+        
+        // menghilangkan form utama
+        this.setVisible(false);
+    }//GEN-LAST:event_btn_DataMahasiswaMouseClicked
+
+    private void btn_DataMataKuliahMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_DataMataKuliahMouseClicked
+        // TODO add your handling code here:
+        // deklarasi frame_mataKuliah
+        frame_mataKuliah frame_mataKuliah = new frame_mataKuliah();
+        frame_mataKuliah.setVisible(true);
+        
+        // menghilangkan form utama
+        this.setVisible(false);
+    }//GEN-LAST:event_btn_DataMataKuliahMouseClicked
+
+    private void btn_DataNilaiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_DataNilaiMouseClicked
+        // TODO add your handling code here:
+        // deklarasi frame_mataKuliah
+        frame_nilaiMahasiswa frame_nilaiMahasiswa = new frame_nilaiMahasiswa();
+        frame_nilaiMahasiswa.setVisible(true);
+        
+        // menghilangkan form utama
+        this.setVisible(false);
+    }//GEN-LAST:event_btn_DataNilaiMouseClicked
+
+    private void btn_SimulasiNilaiAkhirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_SimulasiNilaiAkhirMouseClicked
+        // TODO add your handling code here:
+        // TODO add your handling code here:
+        // deklarasi frame_mataKuliah
+        frame_simulasiNilaiAkhir frame_simulasiNilaiAkhir = new frame_simulasiNilaiAkhir();
+        frame_simulasiNilaiAkhir.setVisible(true);
+        
+        // menghilangkan form utama
+        this.setVisible(false);
+    }//GEN-LAST:event_btn_SimulasiNilaiAkhirMouseClicked
+
+    private void btn_SimulasiKasusMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_SimulasiKasusMouseClicked
+        // TODO add your handling code here:
+        // Untuk Simulasi Kasus JGN DIHAPUS
+    }//GEN-LAST:event_btn_SimulasiKasusMouseClicked
 
     /**
      * @param args the command line arguments
@@ -175,6 +309,12 @@ public class frame_utama extends javax.swing.JFrame {
     private javax.swing.JButton btn_DataNilai;
     private javax.swing.JButton btn_SimulasiKasus;
     private javax.swing.JButton btn_SimulasiNilaiAkhir;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
@@ -185,6 +325,8 @@ public class frame_utama extends javax.swing.JFrame {
     private javax.swing.JToolBar.Separator jSeparator4;
     private javax.swing.JToolBar.Separator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
+    private javax.swing.JSeparator jSeparator7;
+    private javax.swing.JSeparator jSeparator8;
     private javax.swing.JToolBar jToolBar1;
     // End of variables declaration//GEN-END:variables
 }
