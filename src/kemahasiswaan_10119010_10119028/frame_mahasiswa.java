@@ -94,6 +94,7 @@ public class frame_mahasiswa extends javax.swing.JFrame {
     
     // fungsi membersihkan teks
     public void membersihkan_teks() {
+        textField_MasukkanData.setText("");
         textField_NIM.setText("");
         textField_Nama.setText("");
         textField_TempatLahir.setText("");
@@ -103,6 +104,7 @@ public class frame_mahasiswa extends javax.swing.JFrame {
     
     // fungsi menonaktifkan teks
     public void nonaktif_teks() {
+        textField_MasukkanData.setEnabled(false);
         textField_NIM.setEnabled(false);
         textField_Nama.setEnabled(false);
         textField_TempatLahir.setEnabled(false);
@@ -112,6 +114,7 @@ public class frame_mahasiswa extends javax.swing.JFrame {
     
     // fungsi aktif teks
     public void aktif_teks() {
+        textField_MasukkanData.setEnabled(true);
         textField_NIM.setEnabled(true);
         textField_Nama.setEnabled(true);
         textField_TempatLahir.setEnabled(true);

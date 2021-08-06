@@ -90,18 +90,21 @@ public class frame_mataKuliah extends javax.swing.JFrame {
     
      // fungsi membersihkan teks
     public void membersihkan_teks() {
+        textField_MasukkanData.setText("");
         textField_NomorMataKuliah.setText("");
         textField_NamaMataKuliah.setText("");
     }
     
     // fungsi menonaktifkan teks
     public void nonaktif_teks() {
+        textField_MasukkanData.setEnabled(false);
         textField_NomorMataKuliah.setEnabled(false);
         textField_NamaMataKuliah.setEnabled(false);
     }
     
     // fungsi aktif teks
     public void aktif_teks() {
+        textField_MasukkanData.setEnabled(true);
         textField_NomorMataKuliah.setEnabled(true);
         textField_NamaMataKuliah.setEnabled(true);
     }

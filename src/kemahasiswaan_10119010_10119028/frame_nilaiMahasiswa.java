@@ -27,7 +27,7 @@ public class frame_nilaiMahasiswa extends javax.swing.JFrame {
     Object tabel;
     
     // deklarasi variable global untuk data
-    String data[] = new String[5];
+    String data[] = new String[11];
 
     /**
      * Creates new form frame_nilaiMahasiswa
@@ -72,14 +72,14 @@ public class frame_nilaiMahasiswa extends javax.swing.JFrame {
             Class.forName(driver);
             Connection kon = DriverManager.getConnection(database, user, pass);
             Statement stt = kon.createStatement();
-            String SQL = "select * from t_nilai";
+            String SQL = "select * from t_nilai_mahasiswa";
             ResultSet res = stt.executeQuery(SQL);
             while(res.next()) {
                 data[0] = res.getString(1);
                 data[1] = res.getString(2);
-                data[2] = res.getString(3);
-                data[3] = res.getString(4);
-                data[4] = res.getString(5);
+                //data[2] = res.getString(3);
+                //data[3] = res.getString(4);
+                //data[4] = res.getString(5);
                 tableModel.addRow(data);
             }
             res.close();
@@ -90,6 +90,73 @@ public class frame_nilaiMahasiswa extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.INFORMATION_MESSAGE);
             System.exit(0);
         }
+    }
+    
+    // fungsi membersihkan teks
+    public void membersihkan_teks() {
+        textField_MasukkanData.setText("");
+        textField_NIM.setText("");
+        textField_Kehadiran.setText("");
+        textField_Tugas1.setText("");
+        textField_Tugas2.setText("");
+        textField_Tugas3.setText("");
+        textField_NamaMataKuliah.setText("");
+        textField_KodeMataKuliah.setText("");
+        textField_UTS.setText("");
+        textField_UAS.setText("");
+        textField_Angkatan.setText("");
+    }
+    
+    // fungsi menonaktifkan teks
+    public void nonaktif_teks() {
+        textField_MasukkanData.setEnabled(false);
+        textField_NIM.setEnabled(false);
+        textField_Kehadiran.setEnabled(false);
+        textField_Tugas1.setEnabled(false);
+        textField_Tugas2.setEnabled(false);
+        textField_Tugas3.setEnabled(false);
+        textField_NamaMataKuliah.setEnabled(false);
+        textField_KodeMataKuliah.setEnabled(false);
+        textField_UTS.setEnabled(false);
+        textField_UAS.setEnabled(false);
+        textField_Angkatan.setEnabled(false);
+    }
+    
+    // fungsi aktif teks
+    public void aktif_teks() {
+        textField_MasukkanData.setEnabled(true);
+        textField_NIM.setEnabled(true);
+        textField_Kehadiran.setEnabled(true);
+        textField_Tugas1.setEnabled(true);
+        textField_Tugas2.setEnabled(true);
+        textField_Tugas3.setEnabled(true);
+        textField_NamaMataKuliah.setEnabled(true);
+        textField_KodeMataKuliah.setEnabled(true);
+        textField_UTS.setEnabled(true);
+        textField_UAS.setEnabled(true);
+        textField_Angkatan.setEnabled(true);
+    }
+    
+    // fungsi menampilkan data di dalam masing-masing jTextField
+    int row = 0;
+    public void tampil_field() {
+        row = tabel_DataNilaiMahasiswa.getSelectedRow();
+        textField_NIM.setText(tableModel.getValueAt(row, 0).toString());
+        // comboBox_Nama.setText(tableModel.getValueAt(row, 1).toString());
+        textField_Kehadiran.setText(tableModel.getValueAt(row, 2).toString());
+        textField_Tugas1.setText(tableModel.getValueAt(row, 3).toString());
+        textField_Tugas2.setText(tableModel.getValueAt(row, 4).toString());
+        textField_Tugas3.setText(tableModel.getValueAt(row, 5).toString());
+        textField_NamaMataKuliah.setText(tableModel.getValueAt(row, 6).toString());
+        textField_KodeMataKuliah.setText(tableModel.getValueAt(row, 7).toString());
+        textField_UTS.setText(tableModel.getValueAt(row, 8).toString());
+        textField_UAS.setText(tableModel.getValueAt(row, 9).toString());
+        textField_Angkatan.setText(tableModel.getValueAt(row, 10).toString());
+        button_Ubah.setEnabled(true);
+        button_Hapus.setEnabled(true);
+        button_Simpan.setEnabled(false);
+        button_Batal.setEnabled(true);
+        aktif_teks();
     }
 
     /**
@@ -142,7 +209,12 @@ public class frame_nilaiMahasiswa extends javax.swing.JFrame {
         jSeparator4 = new javax.swing.JSeparator();
         comboBox_Nama = new javax.swing.JComboBox<>();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setText("FORM NILAI MAHASISWA");
@@ -214,19 +286,54 @@ public class frame_nilaiMahasiswa extends javax.swing.JFrame {
                 "NAMA", "NAMA M.K", "ABSENSI", "Tgs 1", "Tgs 2", "Tgs 3", "UTS", "UAS", "NILAI ABSEN", "NILAI TUGAS", "NILAI UTS", "NILAI UAS", "NILAI AKHIR", "INDEKS", "KETERANGAN"
             }
         ));
+        tabel_DataNilaiMahasiswa.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabel_DataNilaiMahasiswaMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tabel_DataNilaiMahasiswa);
 
         button_Tambah.setText("TAMBAH");
+        button_Tambah.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                button_TambahMouseClicked(evt);
+            }
+        });
 
         button_Ubah.setText("UBAH");
+        button_Ubah.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                button_UbahMouseClicked(evt);
+            }
+        });
 
         button_Hapus.setText("HAPUS");
+        button_Hapus.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                button_HapusMouseClicked(evt);
+            }
+        });
 
         button_Simpan.setText("SIMPAN");
+        button_Simpan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                button_SimpanMouseClicked(evt);
+            }
+        });
 
         button_Batal.setText("BATAL");
+        button_Batal.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                button_BatalMouseClicked(evt);
+            }
+        });
 
         button_Keluar.setText("KELUAR");
+        button_Keluar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                button_KeluarMouseClicked(evt);
+            }
+        });
 
         comboBox_Nama.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "~ Pilih Nama Mahasiswa ~" }));
 
@@ -389,6 +496,201 @@ public class frame_nilaiMahasiswa extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void button_TambahMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_button_TambahMouseClicked
+        // TODO add your handling code here:
+        membersihkan_teks();
+        textField_NIM.requestFocus();
+        button_Ubah.setEnabled(false);
+        button_Hapus.setEnabled(false);
+        button_Simpan.setEnabled(true);
+        button_Keluar.setEnabled(false);
+        aktif_teks();
+    }//GEN-LAST:event_button_TambahMouseClicked
+
+    private void button_SimpanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_button_SimpanMouseClicked
+        // TODO add your handling code here:
+        String data[]=new String[11];
+        if ((textField_NIM.getText().isEmpty()) || (textField_NamaMataKuliah.getText().isEmpty())) {
+            JOptionPane.showMessageDialog(null,
+                            "Data Tidak Boleh Kosong, Silahkan Dilengkapi!");
+            textField_NIM.requestFocus();
+        } else {
+            try {
+                Class.forName(driver);
+                Connection kon = DriverManager.getConnection(database, user, pass);
+                Statement stt = kon.createStatement();
+                String    SQL = "INSERT INTO t_nilai_mahasiswa(nama,"
+                                + "nim,"
+                                + "kehadiran,"
+                                + "tugas1,"
+                                + "tugas2,"
+                                + "tugas3,"
+                                + "nama_mk,"
+                                + "kode_mk,"
+                                + "uts,"
+                                + "uas,"
+                                + "angkatan) "
+                                   + "VALUES "
+                                + "( '"//+comboBox_Nama.getText()+" ' ,"
+                                + "'"+textField_NIM.getText()+"',"
+                                + "'"+textField_Kehadiran.getText()+" ',"
+                                + "'"+textField_Tugas1.getText()+" ',"
+                                + "'"+textField_Tugas2.getText()+" ',"
+                                + "'"+textField_Tugas3.getText()+" ',"
+                                + "'"+textField_NamaMataKuliah.getText()+" ',"
+                                + "'"+textField_KodeMataKuliah.getText()+" ',"
+                                + "'"+textField_UTS.getText()+" ',"
+                                + "'"+textField_UAS.getText()+" ',"
+                                + "'"+textField_Angkatan.getText()+" ')";
+                
+                stt.executeUpdate(SQL);
+                //data[0] = comboBox_Nama.getText();
+                data[1] = textField_NIM.getText();
+                data[2] = textField_Kehadiran.getText();
+                data[3] = textField_Tugas1.getText();
+                data[4] = textField_Tugas2.getText();
+                data[5] = textField_Tugas3.getText();
+                data[6] = textField_NamaMataKuliah.getText();
+                data[7] = textField_KodeMataKuliah.getText();
+                data[8] = textField_UTS.getText();
+                data[9] = textField_UAS.getText();
+                data[10] = textField_Angkatan.getText();
+                tableModel.insertRow(0, data);
+                stt.close();
+                kon.close();
+                membersihkan_teks();
+                button_Tambah.setEnabled(true);
+                button_Ubah.setEnabled(true);
+                button_Hapus.setEnabled(true);
+                button_Simpan.setEnabled(true);
+                button_Batal.setEnabled(true);
+                button_Keluar.setEnabled(true);
+                nonaktif_teks();
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null,
+                    ex.getMessage(),"Error",
+                    JOptionPane.INFORMATION_MESSAGE
+                );
+            }
+        }
+    }//GEN-LAST:event_button_SimpanMouseClicked
+
+    private void tabel_DataNilaiMahasiswaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabel_DataNilaiMahasiswaMouseClicked
+        // TODO add your handling code here:
+        if (evt.getClickCount() == 1) {
+            tampil_field();
+        }
+    }//GEN-LAST:event_tabel_DataNilaiMahasiswaMouseClicked
+
+    private void button_UbahMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_button_UbahMouseClicked
+        // TODO add your handling code here:
+        int Nama = comboBox_Nama.getSelectedIndex();
+        String NamaMK = textField_NamaMataKuliah.getText();
+        String Absensi = textField_Kehadiran.getText();
+        String Tugas1 = textField_Tugas1.getText();
+        String Tugas2 = textField_Tugas2.getText();
+        String Tugas3 = textField_Tugas3.getText();
+        String UTS = textField_UTS.getText();
+        String UAS = textField_UAS.getText();
+        //String NilaiAbsen = textField_UAS.getText();
+        //String NilaiTugas = textField_UAS.getText();
+        //String NilaiUTS = textField_UAS.getText();
+        //String NilaiUAS = textField_UAS.getText();
+        //String NilaiAkhir = textField_UAS.getText();
+        //String Indeks = textField_UAS.getText();
+        //String Keterangan = textField_UAS.getText();
+        String Angkatan = textField_Angkatan.getText();
+        
+        if ((NamaMK.isEmpty()) | (Absensi.isEmpty())) {
+            JOptionPane.showMessageDialog(null, "Data Tidak Boleh Kosong, Silahkan Dilengkapi!");
+            textField_NIM.requestFocus();
+        } else {
+            try {
+                Class.forName(driver);
+                Connection kon = DriverManager.getConnection(database, user, pass);
+                Statement stt = kon.createStatement();
+                String SQL = "UPDATE `t_nilai_mahasiswa` "
+                                + "SET `nama`='"+Nama+"',"
+                                //+ "`nim`='"+NIM+"',"
+                                + "`kehadiran`='"+Absensi+"',"
+                                + "`tugas1`='"+Tugas1+"',"
+                                + "`tugas2`='"+Tugas2+"',"
+                                + "`tugas3`='"+Tugas3+"',"
+                                + "`nama_mk`='"+NamaMK+"',"
+                                //+ "`kode_mk`='"+KodeMK+"',"
+                                //+ "`uts`='"+UTS+"',"
+                                //+ "`uas`='"+UAS+"',"
+                                + "`angkatan`='"+Angkatan+"' "
+                            + "WHERE "
+                            + "`nim`='"+tableModel.getValueAt(row, 0).toString()+"';";
+                stt.executeUpdate(SQL);
+                //data[0] = parseString(Nama);
+                data[1] = NamaMK;
+                data[2] = Absensi;
+                data[3] = Tugas1;
+                data[4] = Tugas2;
+                data[5] = Tugas3;
+                data[6] = UTS;
+                data[7] = UAS;
+                //data[8] = textField_Tugas3.getText();
+                //data[9] = textField_NamaMataKuliah.getText();
+                //data[10] = textField_KodeMataKuliah.getText();
+                //data[11] = textField_UTS.getText();
+                tableModel.removeRow(row);
+                tableModel.insertRow(row, data);
+                stt.close();
+                kon.close();
+                membersihkan_teks();
+                button_Simpan.setEnabled(false);
+                nonaktif_teks();
+            } catch (Exception ex) {
+                System.err.println(ex.getMessage());
+            }
+        }
+    }//GEN-LAST:event_button_UbahMouseClicked
+
+    private void button_HapusMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_button_HapusMouseClicked
+        // TODO add your handling code here:
+        try {
+            Class.forName(driver);
+            Connection kon = DriverManager.getConnection(database, user, pass);
+            Statement stt = kon.createStatement();
+            String  SQL = "DELETE FROM t_nilai_mahasiswa "
+                        + "WHERE " + "nim='"+tableModel.getValueAt(row, 0).toString()+"'";
+            stt.executeUpdate(SQL);
+            tableModel.removeRow(row);
+            stt.close();
+            kon.close();
+            membersihkan_teks();
+        } catch (Exception ex) {
+            System.err.println(ex.getMessage());
+        }
+    }//GEN-LAST:event_button_HapusMouseClicked
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        // TODO add your handling code here:
+        frame_utama frame_utama = new frame_utama();
+        frame_utama.setVisible(true);
+    }//GEN-LAST:event_formWindowClosed
+
+    private void button_KeluarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_button_KeluarMouseClicked
+        // TODO add your handling code here:
+        frame_utama frame_utama = new frame_utama();
+        frame_utama.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_button_KeluarMouseClicked
+
+    private void button_BatalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_button_BatalMouseClicked
+        // TODO add your handling code here:
+        membersihkan_teks();
+        button_Tambah.setEnabled(true);
+        button_Ubah.setEnabled(true);
+        button_Hapus.setEnabled(true);
+        button_Simpan.setEnabled(true);
+        button_Batal.setEnabled(true);
+        button_Keluar.setEnabled(true);
+    }//GEN-LAST:event_button_BatalMouseClicked
 
     /**
      * @param args the command line arguments
