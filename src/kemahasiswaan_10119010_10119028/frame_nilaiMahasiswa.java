@@ -27,7 +27,7 @@ public class frame_nilaiMahasiswa extends javax.swing.JFrame {
     Object tabel;
     
     // deklarasi variable global untuk data
-    String data[] = new String[11];
+    String data[] = new String[18];
 
     /**
      * Creates new form frame_nilaiMahasiswa
@@ -72,14 +72,30 @@ public class frame_nilaiMahasiswa extends javax.swing.JFrame {
             Class.forName(driver);
             Connection kon = DriverManager.getConnection(database, user, pass);
             Statement stt = kon.createStatement();
-            String SQL = "select * from t_nilai_mahasiswa";
+            String SQL = "select kode_nilai, nim, kode_mk, nama, nama_mk, absensi,"
+                        + "tgs1, tgs2, tgs3, uts, uas,"
+                        + "nilai_absen, nilai_tugas, nilai_uts, nilai_uas,"
+                        + "nilai_akhir, indeks, keterangan from t_nilai";
             ResultSet res = stt.executeQuery(SQL);
             while(res.next()) {
-                data[0] = res.getString(1);
-                data[1] = res.getString(2);
-                //data[2] = res.getString(3);
-                //data[3] = res.getString(4);
-                //data[4] = res.getString(5);
+                data[0] = res.getString(4);
+                data[1] = res.getString(5);
+                data[2] = res.getString(6);
+                data[3] = res.getString(7);
+                data[4] = res.getString(8);
+                data[5] = res.getString(9);
+                data[6] = res.getString(10);
+                data[7] = res.getString(11);
+                data[8] = res.getString(12);
+                data[9] = res.getString(13);
+                data[10] = res.getString(14);
+                data[11] = res.getString(15);
+                data[12] = res.getString(16);
+                data[13] = res.getString(17);
+                data[14] = res.getString(18);
+                data[15] = res.getString(1);
+                data[16] = res.getString(2);
+                data[17] = res.getString(3);
                 tableModel.addRow(data);
             }
             res.close();
@@ -100,7 +116,7 @@ public class frame_nilaiMahasiswa extends javax.swing.JFrame {
         textField_Tugas1.setText("");
         textField_Tugas2.setText("");
         textField_Tugas3.setText("");
-        textField_NamaMataKuliah.setText("");
+        //textField_NamaMataKuliah.setText("");
         textField_KodeMataKuliah.setText("");
         textField_UTS.setText("");
         textField_UAS.setText("");
@@ -115,7 +131,7 @@ public class frame_nilaiMahasiswa extends javax.swing.JFrame {
         textField_Tugas1.setEnabled(false);
         textField_Tugas2.setEnabled(false);
         textField_Tugas3.setEnabled(false);
-        textField_NamaMataKuliah.setEnabled(false);
+        //textField_NamaMataKuliah.setEnabled(false);
         textField_KodeMataKuliah.setEnabled(false);
         textField_UTS.setEnabled(false);
         textField_UAS.setEnabled(false);
@@ -130,7 +146,7 @@ public class frame_nilaiMahasiswa extends javax.swing.JFrame {
         textField_Tugas1.setEnabled(true);
         textField_Tugas2.setEnabled(true);
         textField_Tugas3.setEnabled(true);
-        textField_NamaMataKuliah.setEnabled(true);
+        //textField_NamaMataKuliah.setEnabled(true);
         textField_KodeMataKuliah.setEnabled(true);
         textField_UTS.setEnabled(true);
         textField_UAS.setEnabled(true);
@@ -138,20 +154,25 @@ public class frame_nilaiMahasiswa extends javax.swing.JFrame {
     }
     
     // fungsi menampilkan data di dalam masing-masing jTextField
-    int row = 0;
+    int row = 1;
     public void tampil_field() {
+        
+        
         row = tabel_DataNilaiMahasiswa.getSelectedRow();
-        textField_NIM.setText(tableModel.getValueAt(row, 0).toString());
+        textField_NIM.setText(tableModel.getValueAt(row, 1).toString());
         // comboBox_Nama.setText(tableModel.getValueAt(row, 1).toString());
         textField_Kehadiran.setText(tableModel.getValueAt(row, 2).toString());
         textField_Tugas1.setText(tableModel.getValueAt(row, 3).toString());
         textField_Tugas2.setText(tableModel.getValueAt(row, 4).toString());
         textField_Tugas3.setText(tableModel.getValueAt(row, 5).toString());
-        textField_NamaMataKuliah.setText(tableModel.getValueAt(row, 6).toString());
+        //textField_NamaMataKuliah.setText(tableModel.getValueAt(row, 6).toString());
         textField_KodeMataKuliah.setText(tableModel.getValueAt(row, 7).toString());
         textField_UTS.setText(tableModel.getValueAt(row, 8).toString());
         textField_UAS.setText(tableModel.getValueAt(row, 9).toString());
         textField_Angkatan.setText(tableModel.getValueAt(row, 10).toString());
+        
+        
+        
         button_Ubah.setEnabled(true);
         button_Hapus.setEnabled(true);
         button_Simpan.setEnabled(false);
@@ -188,7 +209,6 @@ public class frame_nilaiMahasiswa extends javax.swing.JFrame {
         textField_Tugas2 = new javax.swing.JTextField();
         textField_Tugas3 = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
-        textField_NamaMataKuliah = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         textField_KodeMataKuliah = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
@@ -208,11 +228,15 @@ public class frame_nilaiMahasiswa extends javax.swing.JFrame {
         button_Keluar = new javax.swing.JButton();
         jSeparator4 = new javax.swing.JSeparator();
         comboBox_Nama = new javax.swing.JComboBox<>();
+        comboBox_NamaMataKuliah = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 formWindowClosed(evt);
+            }
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
             }
         });
 
@@ -336,6 +360,18 @@ public class frame_nilaiMahasiswa extends javax.swing.JFrame {
         });
 
         comboBox_Nama.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "~ Pilih Nama Mahasiswa ~" }));
+        comboBox_Nama.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboBox_NamaActionPerformed(evt);
+            }
+        });
+
+        comboBox_NamaMataKuliah.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "~ Pilih Nama Mata Kuliah ~" }));
+        comboBox_NamaMataKuliah.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboBox_NamaMataKuliahActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -369,7 +405,7 @@ public class frame_nilaiMahasiswa extends javax.swing.JFrame {
                                                     .addComponent(jLabel7))
                                                 .addComponent(comboBox_Nama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addComponent(textField_NIM, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 383, Short.MAX_VALUE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 378, Short.MAX_VALUE)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -383,12 +419,12 @@ public class frame_nilaiMahasiswa extends javax.swing.JFrame {
                                             .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING)
                                             .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.TRAILING))
                                         .addGap(140, 140, 140)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(textField_NamaMataKuliah, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                             .addComponent(textField_UTS, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(textField_KodeMataKuliah, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(textField_KodeMataKuliah)
                                             .addComponent(textField_UAS, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(textField_Angkatan, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                            .addComponent(textField_Angkatan, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(comboBox_NamaMataKuliah, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(textField_Tugas3, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(0, 0, Short.MAX_VALUE))))
@@ -445,8 +481,8 @@ public class frame_nilaiMahasiswa extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
                             .addComponent(textField_NIM, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(textField_NamaMataKuliah, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel11))
+                            .addComponent(jLabel11)
+                            .addComponent(comboBox_NamaMataKuliah, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
@@ -510,8 +546,47 @@ public class frame_nilaiMahasiswa extends javax.swing.JFrame {
 
     private void button_SimpanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_button_SimpanMouseClicked
         // TODO add your handling code here:
+        // deklarasi variabel textField
+        double Tugas1, Tugas2, Tugas3, UTS, UAS;
+        double nilaiAbsen, nilaiTugas, nilaiUTS, nilaiUAS, nilaiAkhir;
+        String indeks = null, keterangan = null;
+        
+        // inisialisasi variable
+        Tugas1 = Double.valueOf(textField_Tugas1.getText());
+        Tugas3 = Double.valueOf(textField_Tugas2.getText());
+        Tugas2 = Double.valueOf(textField_Tugas3.getText());
+        UTS = Double.valueOf(textField_UTS.getText());
+        UAS = Double.valueOf(textField_UAS.getText());
+        
+        // inisialisasi variable
+        nilaiAbsen = (((Double.valueOf(textField_Kehadiran.getText()) / 14) * 100 * 5) / 100);
+        nilaiTugas = (Double.valueOf(Tugas1 + Tugas2 + Tugas3 / 3) * (25 / 100));
+        nilaiUTS = UTS * 0.3;
+        nilaiUAS = UAS * 0.4;
+        nilaiAkhir = nilaiAbsen + nilaiTugas + nilaiUTS + nilaiUAS;
+        
+        if (nilaiAkhir >= 80 && nilaiAkhir <=100) {
+            indeks = "A";
+        } else if (nilaiAkhir >=68 && nilaiAkhir <= 79) {
+            indeks = "B";
+        } else if (nilaiAkhir >=56 && nilaiAkhir <= 67) {
+            indeks = "C";
+        } else if (nilaiAkhir >=45 && nilaiAkhir <= 55) {
+            indeks = "D";
+        } else if (nilaiAkhir >= 0 && nilaiAkhir <= 44) {
+            indeks = "E";
+        }
+        
+        if (indeks.equals("A") || indeks.equals("B") || indeks.equals("C")){
+            keterangan = "Lulus";
+        } else {
+            keterangan = "Tidak Lulus";
+        }
+        
+
+        
         String data[]=new String[11];
-        if ((textField_NIM.getText().isEmpty()) || (textField_NamaMataKuliah.getText().isEmpty())) {
+        if ((textField_NIM.getText().isEmpty()) || (textField_Kehadiran.getText().isEmpty())) {
             JOptionPane.showMessageDialog(null,
                             "Data Tidak Boleh Kosong, Silahkan Dilengkapi!");
             textField_NIM.requestFocus();
@@ -520,42 +595,58 @@ public class frame_nilaiMahasiswa extends javax.swing.JFrame {
                 Class.forName(driver);
                 Connection kon = DriverManager.getConnection(database, user, pass);
                 Statement stt = kon.createStatement();
-                String    SQL = "INSERT INTO t_nilai_mahasiswa(nama,"
-                                + "nim,"
-                                + "kehadiran,"
-                                + "tugas1,"
-                                + "tugas2,"
-                                + "tugas3,"
-                                + "nama_mk,"
+                String    SQL = "INSERT INTO t_nilai(nim,"
                                 + "kode_mk,"
+                                + "nama,"
+                                + "nama_mk,"
+                                + "absensi,"
+                                + "tgs1,"
+                                + "tgs2,"
+                                + "tgs3,"
                                 + "uts,"
                                 + "uas,"
+                                + "nilai_absen,"
+                                + "nilai_tugas,"
+                                + "nilai_uts,"
+                                + "nilai_uas,"
+                                + "nilai_akhir,"
+                                + "indeks,"
+                                + "keterangan,"
                                 + "angkatan) "
                                    + "VALUES "
-                                + "( '"//+comboBox_Nama.getText()+" ' ,"
-                                + "'"+textField_NIM.getText()+"',"
+                                + "( '"+textField_NIM.getText()+" ' ,"
+                                + "'"+textField_KodeMataKuliah.getText()+"',"
+                                + "'"+comboBox_Nama.getSelectedItem()+"',"
+                                + "'"+comboBox_NamaMataKuliah.getSelectedItem()+"',"
                                 + "'"+textField_Kehadiran.getText()+" ',"
-                                + "'"+textField_Tugas1.getText()+" ',"
-                                + "'"+textField_Tugas2.getText()+" ',"
-                                + "'"+textField_Tugas3.getText()+" ',"
-                                + "'"+textField_NamaMataKuliah.getText()+" ',"
-                                + "'"+textField_KodeMataKuliah.getText()+" ',"
-                                + "'"+textField_UTS.getText()+" ',"
-                                + "'"+textField_UAS.getText()+" ',"
-                                + "'"+textField_Angkatan.getText()+" ')";
+                                + "'"+ Tugas1 +" ',"
+                                + "'"+ Tugas2 +" ',"
+                                + "'"+ Tugas3 +" ',"
+                                + "'"+ UTS +" ',"
+                                + "'"+ UAS +" ',"
+                                + "'"+ nilaiAbsen +" ',"
+                                + "'"+ nilaiUAS +" ',"
+                                + "'"+ nilaiAkhir +" ',"
+                                + "'"+ indeks +" ',"
+                                + "'"+ keterangan +" ',"
+                                + "'"+ textField_Angkatan.getText() +" ')";
                 
                 stt.executeUpdate(SQL);
-                //data[0] = comboBox_Nama.getText();
-                data[1] = textField_NIM.getText();
-                data[2] = textField_Kehadiran.getText();
-                data[3] = textField_Tugas1.getText();
-                data[4] = textField_Tugas2.getText();
-                data[5] = textField_Tugas3.getText();
-                data[6] = textField_NamaMataKuliah.getText();
-                data[7] = textField_KodeMataKuliah.getText();
-                data[8] = textField_UTS.getText();
-                data[9] = textField_UAS.getText();
-                data[10] = textField_Angkatan.getText();
+                data[0] = textField_NIM.getText();
+                data[1] = textField_KodeMataKuliah.getText();
+                data[2] = String.valueOf(comboBox_Nama.getSelectedItem());
+                data[3] = String.valueOf(comboBox_NamaMataKuliah.getSelectedItem());
+                data[4] = String.valueOf(Tugas1);
+                data[5] = String.valueOf(Tugas2);
+                data[6] = String.valueOf(Tugas3);
+                data[7] = String.valueOf(UTS);
+                data[8] = String.valueOf(UAS);
+                data[9] = String.valueOf(nilaiAbsen);
+                data[10] = String.valueOf(nilaiUAS);
+                data[11] = String.valueOf(nilaiAkhir);
+                data[12] = String.valueOf(indeks);
+                data[13] = String.valueOf(keterangan);
+                data[14] = String.valueOf(textField_Kehadiran.getText());
                 tableModel.insertRow(0, data);
                 stt.close();
                 kon.close();
@@ -586,7 +677,7 @@ public class frame_nilaiMahasiswa extends javax.swing.JFrame {
     private void button_UbahMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_button_UbahMouseClicked
         // TODO add your handling code here:
         int Nama = comboBox_Nama.getSelectedIndex();
-        String NamaMK = textField_NamaMataKuliah.getText();
+        //String NamaMK = textField_NamaMataKuliah.getText();
         String Absensi = textField_Kehadiran.getText();
         String Tugas1 = textField_Tugas1.getText();
         String Tugas2 = textField_Tugas2.getText();
@@ -602,7 +693,7 @@ public class frame_nilaiMahasiswa extends javax.swing.JFrame {
         //String Keterangan = textField_UAS.getText();
         String Angkatan = textField_Angkatan.getText();
         
-        if ((NamaMK.isEmpty()) | (Absensi.isEmpty())) {
+        if ((Absensi.isEmpty()) | (Absensi.isEmpty())) {
             JOptionPane.showMessageDialog(null, "Data Tidak Boleh Kosong, Silahkan Dilengkapi!");
             textField_NIM.requestFocus();
         } else {
@@ -610,14 +701,14 @@ public class frame_nilaiMahasiswa extends javax.swing.JFrame {
                 Class.forName(driver);
                 Connection kon = DriverManager.getConnection(database, user, pass);
                 Statement stt = kon.createStatement();
-                String SQL = "UPDATE `t_nilai_mahasiswa` "
+                String SQL = "UPDATE `t_nilai` "
                                 + "SET `nama`='"+Nama+"',"
                                 //+ "`nim`='"+NIM+"',"
                                 + "`kehadiran`='"+Absensi+"',"
                                 + "`tugas1`='"+Tugas1+"',"
                                 + "`tugas2`='"+Tugas2+"',"
                                 + "`tugas3`='"+Tugas3+"',"
-                                + "`nama_mk`='"+NamaMK+"',"
+                                //+ "`nama_mk`='"+NamaMK+"',"
                                 //+ "`kode_mk`='"+KodeMK+"',"
                                 //+ "`uts`='"+UTS+"',"
                                 //+ "`uas`='"+UAS+"',"
@@ -626,7 +717,7 @@ public class frame_nilaiMahasiswa extends javax.swing.JFrame {
                             + "`nim`='"+tableModel.getValueAt(row, 0).toString()+"';";
                 stt.executeUpdate(SQL);
                 //data[0] = parseString(Nama);
-                data[1] = NamaMK;
+                //data[1] = NamaMK;
                 data[2] = Absensi;
                 data[3] = Tugas1;
                 data[4] = Tugas2;
@@ -656,7 +747,7 @@ public class frame_nilaiMahasiswa extends javax.swing.JFrame {
             Class.forName(driver);
             Connection kon = DriverManager.getConnection(database, user, pass);
             Statement stt = kon.createStatement();
-            String  SQL = "DELETE FROM t_nilai_mahasiswa "
+            String  SQL = "DELETE FROM t_nilai "
                         + "WHERE " + "nim='"+tableModel.getValueAt(row, 0).toString()+"'";
             stt.executeUpdate(SQL);
             tableModel.removeRow(row);
@@ -691,6 +782,111 @@ public class frame_nilaiMahasiswa extends javax.swing.JFrame {
         button_Batal.setEnabled(true);
         button_Keluar.setEnabled(true);
     }//GEN-LAST:event_button_BatalMouseClicked
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+        // untuk comboBox nama
+        try {
+            Class.forName(driver);
+            Connection kon = DriverManager.getConnection(database, user, pass);
+            Statement stt = kon.createStatement();
+            String SQL = "select nama from t_mahasiswa";
+            ResultSet res = stt.executeQuery(SQL);
+            while (res.next()) {
+                String namaMhs = res.getString(1);
+                comboBox_Nama.addItem(String.valueOf(namaMhs));
+            }
+            res.close();
+            stt.close();
+            kon.close();
+        } catch (Exception ex) {
+              JOptionPane.showMessageDialog(null,
+                        ex.getMessage(), "Error",
+                        JOptionPane.INFORMATION_MESSAGE
+                );
+        }
+        
+        // untuk comboBox nama mata kuliah
+        try {
+            Class.forName(driver);
+            Connection kon = DriverManager.getConnection(database, user, pass);
+            Statement stt = kon.createStatement();
+            String SQL = "select nama_mk from t_mata_kuliah";
+            ResultSet res = stt.executeQuery(SQL);
+            while (res.next()) {
+                String namaMK = res.getString(1);
+                comboBox_NamaMataKuliah.addItem(String.valueOf(namaMK));
+            }
+            res.close();
+            stt.close();
+            kon.close();
+        } catch (Exception ex) {
+              JOptionPane.showMessageDialog(null,
+                        ex.getMessage(), "Error",
+                        JOptionPane.INFORMATION_MESSAGE
+                );
+        }
+    }//GEN-LAST:event_formWindowOpened
+
+    private void comboBox_NamaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBox_NamaActionPerformed
+        // TODO add your handling code here:
+        // deklarasi variable
+        int namaMhs = comboBox_Nama.getSelectedIndex();
+        
+        if (namaMhs==0) {
+            textField_NIM.setText("");
+        } else {
+            try {
+            Class.forName(driver);
+            Connection kon = DriverManager.getConnection(database, user, pass);
+            Statement stt = kon.createStatement();
+            String SQL = "select nama, nim from t_mahasiswa "
+                        + "where nama= '"+comboBox_Nama.getSelectedItem()+"'";
+            ResultSet res = stt.executeQuery(SQL);
+            while (res.next()) {
+                textField_NIM.setText(res.getString(2));
+            }
+            res.close();
+            stt.close();
+            kon.close();
+            } catch (Exception ex) {
+              JOptionPane.showMessageDialog(null,
+                        ex.getMessage(), "Error",
+                        JOptionPane.INFORMATION_MESSAGE
+                );
+            }
+        }
+    }//GEN-LAST:event_comboBox_NamaActionPerformed
+
+    private void comboBox_NamaMataKuliahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBox_NamaMataKuliahActionPerformed
+        // TODO add your handling code here:
+         // deklarasi variable
+        int namaMK = comboBox_NamaMataKuliah.getSelectedIndex();
+        
+        if (namaMK==0) {
+            textField_KodeMataKuliah.setText("");
+        } else {
+            try {
+            Class.forName(driver);
+            Connection kon = DriverManager.getConnection(database, user, pass);
+            Statement stt = kon.createStatement();
+            String SQL = "select kode_mk, nama_mk from t_mata_kuliah "
+                        + "where nama_mk= '"+comboBox_NamaMataKuliah.getSelectedItem()+"'";
+            ResultSet res = stt.executeQuery(SQL);
+            while (res.next()) {
+                textField_KodeMataKuliah.setText(res.getString(1));
+            }
+            res.close();
+            stt.close();
+            kon.close();
+            } catch (Exception ex) {
+              JOptionPane.showMessageDialog(null,
+                        ex.getMessage(), "Error",
+                        JOptionPane.INFORMATION_MESSAGE
+                );
+            }
+        }
+    }//GEN-LAST:event_comboBox_NamaMataKuliahActionPerformed
 
     /**
      * @param args the command line arguments
@@ -735,6 +931,7 @@ public class frame_nilaiMahasiswa extends javax.swing.JFrame {
     private javax.swing.JButton button_Tambah;
     private javax.swing.JButton button_Ubah;
     private javax.swing.JComboBox<String> comboBox_Nama;
+    private javax.swing.JComboBox<String> comboBox_NamaMataKuliah;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -762,7 +959,6 @@ public class frame_nilaiMahasiswa extends javax.swing.JFrame {
     private javax.swing.JTextField textField_KodeMataKuliah;
     private javax.swing.JTextField textField_MasukkanData;
     private javax.swing.JTextField textField_NIM;
-    private javax.swing.JTextField textField_NamaMataKuliah;
     private javax.swing.JTextField textField_Tugas1;
     private javax.swing.JTextField textField_Tugas2;
     private javax.swing.JTextField textField_Tugas3;
