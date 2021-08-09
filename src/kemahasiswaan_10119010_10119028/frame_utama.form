@@ -20,13 +20,16 @@
     </Menu>
   </NonVisualComponents>
   <Properties>
-    <Property name="defaultCloseOperation" type="int" value="3"/>
+    <Property name="defaultCloseOperation" type="int" value="2"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="menuBar" type="java.lang.String" value="jMenuBar1"/>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
     <SyntheticProperty name="generateCenter" type="boolean" value="true"/>
   </SyntheticProperties>
+  <Events>
+    <EventHandler event="windowClosed" listener="java.awt.event.WindowListener" parameters="java.awt.event.WindowEvent" handler="formWindowClosed"/>
+  </Events>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
@@ -74,7 +77,7 @@
         <Component class="javax.swing.JButton" name="btn_DataMahasiswa">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="F:\NetBeansProjects\ProVis\kemahasiswaan_10119010_10119028\gambar\mahasiswa.png"/>
+              <Image iconType="3" name="/gambar/mahasiswa.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Data Mahasiswa"/>
             <Property name="focusable" type="boolean" value="false"/>
@@ -90,7 +93,7 @@
         <Component class="javax.swing.JButton" name="btn_DataMataKuliah">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="F:\NetBeansProjects\ProVis\kemahasiswaan_10119010_10119028\gambar\mata_kuliah.png"/>
+              <Image iconType="3" name="/gambar/mata_kuliah.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Data Mata Kuliah"/>
             <Property name="focusable" type="boolean" value="false"/>
@@ -106,7 +109,7 @@
         <Component class="javax.swing.JButton" name="btn_DataNilai">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="F:\NetBeansProjects\ProVis\kemahasiswaan_10119010_10119028\gambar\nilai.png"/>
+              <Image iconType="3" name="/gambar/nilai.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Data Nilai"/>
             <Property name="focusable" type="boolean" value="false"/>
@@ -122,7 +125,7 @@
         <Component class="javax.swing.JButton" name="btn_SimulasiNilaiAkhir">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="F:\NetBeansProjects\ProVis\kemahasiswaan_10119010_10119028\gambar\nilai akhir.png"/>
+              <Image iconType="3" name="/gambar/nilai akhir.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Simulasi Nilai Akhir"/>
             <Property name="focusable" type="boolean" value="false"/>
@@ -138,7 +141,7 @@
         <Component class="javax.swing.JButton" name="btn_SimulasiKasus">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="F:\NetBeansProjects\ProVis\kemahasiswaan_10119010_10119028\gambar\kasus.png"/>
+              <Image iconType="3" name="/gambar/kasus.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Simulasi Kasus"/>
             <Property name="focusable" type="boolean" value="false"/>
@@ -218,7 +221,7 @@
                       <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="16" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -227,14 +230,14 @@
         <Component class="javax.swing.JLabel" name="jLabel2">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="F:\NetBeansProjects\ProVis\kemahasiswaan_10119010_10119028\gambar\foto rizal.jpg"/>
+              <Image iconType="3" name="/gambar/foto rizal.jpg"/>
             </Property>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel3">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="F:\NetBeansProjects\ProVis\kemahasiswaan_10119010_10119028\gambar\foto imam.jpeg"/>
+              <Image iconType="3" name="/gambar/foto imam.jpeg"/>
             </Property>
           </Properties>
         </Component>

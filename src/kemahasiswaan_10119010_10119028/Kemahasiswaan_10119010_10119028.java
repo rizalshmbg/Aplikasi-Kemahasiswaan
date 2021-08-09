@@ -17,8 +17,8 @@ public class Kemahasiswaan_10119010_10119028 {
     public static void main(String[] args) {
         // TODO code application logic here
         
-        frame_utama frame_utama = new frame_utama();
-        frame_utama.setVisible(true);
+        frame_login frame_login = new frame_login();
+        frame_login.setVisible(true);
     }
     
 }

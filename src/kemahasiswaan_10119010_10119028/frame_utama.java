@@ -52,11 +52,16 @@ public class frame_utama extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         jToolBar1.setRollover(true);
 
-        btn_DataMahasiswa.setIcon(new javax.swing.ImageIcon("F:\\NetBeansProjects\\ProVis\\kemahasiswaan_10119010_10119028\\gambar\\mahasiswa.png")); // NOI18N
+        btn_DataMahasiswa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/mahasiswa.png"))); // NOI18N
         btn_DataMahasiswa.setText("Data Mahasiswa");
         btn_DataMahasiswa.setFocusable(false);
         btn_DataMahasiswa.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -69,7 +74,7 @@ public class frame_utama extends javax.swing.JFrame {
         jToolBar1.add(btn_DataMahasiswa);
         jToolBar1.add(jSeparator1);
 
-        btn_DataMataKuliah.setIcon(new javax.swing.ImageIcon("F:\\NetBeansProjects\\ProVis\\kemahasiswaan_10119010_10119028\\gambar\\mata_kuliah.png")); // NOI18N
+        btn_DataMataKuliah.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/mata_kuliah.png"))); // NOI18N
         btn_DataMataKuliah.setText("Data Mata Kuliah");
         btn_DataMataKuliah.setFocusable(false);
         btn_DataMataKuliah.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -82,7 +87,7 @@ public class frame_utama extends javax.swing.JFrame {
         jToolBar1.add(btn_DataMataKuliah);
         jToolBar1.add(jSeparator2);
 
-        btn_DataNilai.setIcon(new javax.swing.ImageIcon("F:\\NetBeansProjects\\ProVis\\kemahasiswaan_10119010_10119028\\gambar\\nilai.png")); // NOI18N
+        btn_DataNilai.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/nilai.png"))); // NOI18N
         btn_DataNilai.setText("Data Nilai");
         btn_DataNilai.setFocusable(false);
         btn_DataNilai.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -95,7 +100,7 @@ public class frame_utama extends javax.swing.JFrame {
         jToolBar1.add(btn_DataNilai);
         jToolBar1.add(jSeparator3);
 
-        btn_SimulasiNilaiAkhir.setIcon(new javax.swing.ImageIcon("F:\\NetBeansProjects\\ProVis\\kemahasiswaan_10119010_10119028\\gambar\\nilai akhir.png")); // NOI18N
+        btn_SimulasiNilaiAkhir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/nilai akhir.png"))); // NOI18N
         btn_SimulasiNilaiAkhir.setText("Simulasi Nilai Akhir");
         btn_SimulasiNilaiAkhir.setFocusable(false);
         btn_SimulasiNilaiAkhir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -108,7 +113,7 @@ public class frame_utama extends javax.swing.JFrame {
         jToolBar1.add(btn_SimulasiNilaiAkhir);
         jToolBar1.add(jSeparator4);
 
-        btn_SimulasiKasus.setIcon(new javax.swing.ImageIcon("F:\\NetBeansProjects\\ProVis\\kemahasiswaan_10119010_10119028\\gambar\\kasus.png")); // NOI18N
+        btn_SimulasiKasus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/kasus.png"))); // NOI18N
         btn_SimulasiKasus.setText("Simulasi Kasus");
         btn_SimulasiKasus.setFocusable(false);
         btn_SimulasiKasus.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -121,9 +126,9 @@ public class frame_utama extends javax.swing.JFrame {
         jToolBar1.add(btn_SimulasiKasus);
         jToolBar1.add(jSeparator5);
 
-        jLabel2.setIcon(new javax.swing.ImageIcon("F:\\NetBeansProjects\\ProVis\\kemahasiswaan_10119010_10119028\\gambar\\foto rizal.jpg")); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/foto rizal.jpg"))); // NOI18N
 
-        jLabel3.setIcon(new javax.swing.ImageIcon("F:\\NetBeansProjects\\ProVis\\kemahasiswaan_10119010_10119028\\gambar\\foto imam.jpeg")); // NOI18N
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/foto imam.jpeg"))); // NOI18N
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setText("10119010");
@@ -184,7 +189,7 @@ public class frame_utama extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5)
                     .addComponent(jLabel6))
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jMenu1.setText("Aplikasi Kemahasiswaan");
@@ -267,6 +272,12 @@ public class frame_utama extends javax.swing.JFrame {
         // TODO add your handling code here:
         // Untuk Simulasi Kasus JGN DIHAPUS
     }//GEN-LAST:event_btn_SimulasiKasusMouseClicked
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        // TODO add your handling code here:
+        frame_login frame_login = new frame_login();
+        frame_login.setVisible(true);
+    }//GEN-LAST:event_formWindowClosed
 
     /**
      * @param args the command line arguments

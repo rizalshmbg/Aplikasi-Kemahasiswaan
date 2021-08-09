@@ -10,6 +10,7 @@ import javax.swing.*;
 
 // fungsi import yg digunakan mySql
 import java.sql.*;
+import java.text.DecimalFormat;
 
 // fungsi import yg digunakan untuk tanggal
 import java.text.SimpleDateFormat;
@@ -27,7 +28,7 @@ public class frame_nilaiMahasiswa extends javax.swing.JFrame {
     Object tabel;
     
     // deklarasi variable global untuk data
-    String data[] = new String[18];
+    String data[] = new String[15];
 
     /**
      * Creates new form frame_nilaiMahasiswa
@@ -57,7 +58,7 @@ public class frame_nilaiMahasiswa extends javax.swing.JFrame {
         // disable perubahan pada grid
         {
             boolean[] canEdit = new boolean[] {
-                false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false, false, false, false, false, false
             };
             
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -93,9 +94,6 @@ public class frame_nilaiMahasiswa extends javax.swing.JFrame {
                 data[12] = res.getString(16);
                 data[13] = res.getString(17);
                 data[14] = res.getString(18);
-                data[15] = res.getString(1);
-                data[16] = res.getString(2);
-                data[17] = res.getString(3);
                 tableModel.addRow(data);
             }
             res.close();
@@ -106,6 +104,39 @@ public class frame_nilaiMahasiswa extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.INFORMATION_MESSAGE);
             System.exit(0);
         }
+    }
+    
+    public char index(double nilaiAkhir) {
+        char index;
+        
+        if (nilaiAkhir >= 80 && nilaiAkhir <= 100) {
+            index = 'A';
+        } else if (nilaiAkhir > 68 && nilaiAkhir <= 80) {
+            index = 'B';
+        } else if (nilaiAkhir > 56 && nilaiAkhir <= 68) {
+            index = 'C';
+        } else if (nilaiAkhir > 45 && nilaiAkhir <= 56) {
+            index = 'D';
+        } else {
+            index = 'E';
+        }
+        return index;
+    }
+    
+    public String keterangan(String index) {
+        String keterangan;
+        
+        switch (index) {
+            case "A" : 
+            case "B" :
+            case "C" :
+                keterangan = "Lulus";
+                break;       
+            default : 
+                keterangan = "Tidak Lulus";
+                break;
+        };
+        return keterangan;
     }
     
     // fungsi membersihkan teks
@@ -120,7 +151,8 @@ public class frame_nilaiMahasiswa extends javax.swing.JFrame {
         textField_KodeMataKuliah.setText("");
         textField_UTS.setText("");
         textField_UAS.setText("");
-        textField_Angkatan.setText("");
+        comboBox_NamaMataKuliah.setSelectedIndex(0);
+        comboBox_Nama.setSelectedIndex(0);
     }
     
     // fungsi menonaktifkan teks
@@ -131,11 +163,9 @@ public class frame_nilaiMahasiswa extends javax.swing.JFrame {
         textField_Tugas1.setEnabled(false);
         textField_Tugas2.setEnabled(false);
         textField_Tugas3.setEnabled(false);
-        //textField_NamaMataKuliah.setEnabled(false);
         textField_KodeMataKuliah.setEnabled(false);
         textField_UTS.setEnabled(false);
         textField_UAS.setEnabled(false);
-        textField_Angkatan.setEnabled(false);
     }
     
     // fungsi aktif teks
@@ -150,7 +180,6 @@ public class frame_nilaiMahasiswa extends javax.swing.JFrame {
         textField_KodeMataKuliah.setEnabled(true);
         textField_UTS.setEnabled(true);
         textField_UAS.setEnabled(true);
-        textField_Angkatan.setEnabled(true);
     }
     
     // fungsi menampilkan data di dalam masing-masing jTextField
@@ -159,17 +188,17 @@ public class frame_nilaiMahasiswa extends javax.swing.JFrame {
         
         
         row = tabel_DataNilaiMahasiswa.getSelectedRow();
-        textField_NIM.setText(tableModel.getValueAt(row, 1).toString());
-        // comboBox_Nama.setText(tableModel.getValueAt(row, 1).toString());
+//        textField_NIM.setText(tableModel.getValueAt(row, 1).toString());
+         comboBox_Nama.setSelectedItem(tableModel.getValueAt(row, 0).toString());
         textField_Kehadiran.setText(tableModel.getValueAt(row, 2).toString());
         textField_Tugas1.setText(tableModel.getValueAt(row, 3).toString());
         textField_Tugas2.setText(tableModel.getValueAt(row, 4).toString());
         textField_Tugas3.setText(tableModel.getValueAt(row, 5).toString());
-        //textField_NamaMataKuliah.setText(tableModel.getValueAt(row, 6).toString());
-        textField_KodeMataKuliah.setText(tableModel.getValueAt(row, 7).toString());
-        textField_UTS.setText(tableModel.getValueAt(row, 8).toString());
-        textField_UAS.setText(tableModel.getValueAt(row, 9).toString());
-        textField_Angkatan.setText(tableModel.getValueAt(row, 10).toString());
+        comboBox_NamaMataKuliah.setSelectedItem(tableModel.getValueAt(row, 1).toString());
+//        textField_KodeMataKuliah.setText(tableModel.getValueAt(row, 7).toString());
+        textField_UTS.setText(tableModel.getValueAt(row, 6).toString());
+        textField_UAS.setText(tableModel.getValueAt(row, 7).toString());
+//        textField_Angkatan.setText(tableModel.getValueAt(row, 10).toString());
         
         
         
@@ -216,7 +245,6 @@ public class frame_nilaiMahasiswa extends javax.swing.JFrame {
         jLabel15 = new javax.swing.JLabel();
         textField_UTS = new javax.swing.JTextField();
         textField_UAS = new javax.swing.JTextField();
-        textField_Angkatan = new javax.swing.JTextField();
         jSeparator3 = new javax.swing.JSeparator();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabel_DataNilaiMahasiswa = new javax.swing.JTable();
@@ -229,6 +257,7 @@ public class frame_nilaiMahasiswa extends javax.swing.JFrame {
         jSeparator4 = new javax.swing.JSeparator();
         comboBox_Nama = new javax.swing.JComboBox<>();
         comboBox_NamaMataKuliah = new javax.swing.JComboBox<>();
+        textField_Angkatan = new com.toedter.calendar.JYearChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -265,6 +294,12 @@ public class frame_nilaiMahasiswa extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel3.setText("Masukkan Data");
+
+        textField_MasukkanData.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                textField_MasukkanDataKeyReleased(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel4.setText("NIM");
@@ -398,13 +433,12 @@ public class frame_nilaiMahasiswa extends javax.swing.JFrame {
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(textField_Tugas2, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(textField_Tugas1, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                .addGroup(layout.createSequentialGroup()
-                                                    .addComponent(textField_Kehadiran, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                    .addComponent(jLabel7))
-                                                .addComponent(comboBox_Nama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(textField_NIM, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(textField_Kehadiran, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jLabel7))
+                                            .addComponent(comboBox_Nama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(textField_NIM, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 378, Short.MAX_VALUE)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -422,9 +456,9 @@ public class frame_nilaiMahasiswa extends javax.swing.JFrame {
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                             .addComponent(textField_UTS, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(textField_KodeMataKuliah)
-                                            .addComponent(textField_UAS, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(textField_Angkatan, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(comboBox_NamaMataKuliah, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                            .addComponent(comboBox_NamaMataKuliah, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(textField_Angkatan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(textField_UAS)))
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(textField_Tugas3, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(0, 0, Short.MAX_VALUE))))
@@ -476,6 +510,13 @@ public class frame_nilaiMahasiswa extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel15)
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel10)
+                            .addComponent(textField_Tugas3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -502,17 +543,16 @@ public class frame_nilaiMahasiswa extends javax.swing.JFrame {
                             .addComponent(textField_Tugas1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(textField_UAS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel14))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel9)
-                            .addComponent(textField_Tugas2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(textField_Angkatan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jLabel15))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10)
-                    .addComponent(textField_Tugas3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel9)
+                                    .addComponent(textField_Tugas2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(23, 23, 23)
+                                .addComponent(textField_Angkatan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)))
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -547,45 +587,30 @@ public class frame_nilaiMahasiswa extends javax.swing.JFrame {
     private void button_SimpanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_button_SimpanMouseClicked
         // TODO add your handling code here:
         // deklarasi variabel textField
+        DecimalFormat df=new DecimalFormat("#.##");
         double Tugas1, Tugas2, Tugas3, UTS, UAS;
         double nilaiAbsen, nilaiTugas, nilaiUTS, nilaiUAS, nilaiAkhir;
-        String indeks = null, keterangan = null;
+        char index;
+        String convertIndexToStr, keterangan = null;
         
         // inisialisasi variable
         Tugas1 = Double.valueOf(textField_Tugas1.getText());
-        Tugas3 = Double.valueOf(textField_Tugas2.getText());
-        Tugas2 = Double.valueOf(textField_Tugas3.getText());
+        Tugas2 = Double.valueOf(textField_Tugas2.getText());
+        Tugas3 = Double.valueOf(textField_Tugas3.getText());
         UTS = Double.valueOf(textField_UTS.getText());
         UAS = Double.valueOf(textField_UAS.getText());
         
         // inisialisasi variable
         nilaiAbsen = (((Double.valueOf(textField_Kehadiran.getText()) / 14) * 100 * 5) / 100);
-        nilaiTugas = (Double.valueOf(Tugas1 + Tugas2 + Tugas3 / 3) * (25 / 100));
+        nilaiTugas = (((Tugas1 + Tugas2 + Tugas3) / 3) * 25 / 100);
         nilaiUTS = UTS * 0.3;
         nilaiUAS = UAS * 0.4;
-        nilaiAkhir = nilaiAbsen + nilaiTugas + nilaiUTS + nilaiUAS;
+        nilaiAkhir = nilaiAbsen + nilaiTugas + nilaiUTS + nilaiUAS;  
+        index = index(nilaiAkhir);
+        convertIndexToStr = String.valueOf(index);
+        keterangan = keterangan(convertIndexToStr);
         
-        if (nilaiAkhir >= 80 && nilaiAkhir <=100) {
-            indeks = "A";
-        } else if (nilaiAkhir >=68 && nilaiAkhir <= 79) {
-            indeks = "B";
-        } else if (nilaiAkhir >=56 && nilaiAkhir <= 67) {
-            indeks = "C";
-        } else if (nilaiAkhir >=45 && nilaiAkhir <= 55) {
-            indeks = "D";
-        } else if (nilaiAkhir >= 0 && nilaiAkhir <= 44) {
-            indeks = "E";
-        }
-        
-        if (indeks.equals("A") || indeks.equals("B") || indeks.equals("C")){
-            keterangan = "Lulus";
-        } else {
-            keterangan = "Tidak Lulus";
-        }
-        
-
-        
-        String data[]=new String[11];
+        String data[]=new String[15];
         if ((textField_NIM.getText().isEmpty()) || (textField_Kehadiran.getText().isEmpty())) {
             JOptionPane.showMessageDialog(null,
                             "Data Tidak Boleh Kosong, Silahkan Dilengkapi!");
@@ -624,29 +649,31 @@ public class frame_nilaiMahasiswa extends javax.swing.JFrame {
                                 + "'"+ Tugas3 +" ',"
                                 + "'"+ UTS +" ',"
                                 + "'"+ UAS +" ',"
-                                + "'"+ nilaiAbsen +" ',"
-                                + "'"+ nilaiUAS +" ',"
-                                + "'"+ nilaiAkhir +" ',"
-                                + "'"+ indeks +" ',"
+                                + "'"+ df.format(nilaiAbsen) +" ',"
+                                + "'"+ df.format(nilaiTugas) +" ',"
+                                + "'"+ df.format(nilaiUTS) +" ',"
+                                + "'"+ df.format(nilaiUAS) +" ',"
+                                + "'"+ df.format(nilaiAkhir) +" ',"
+                                + "'"+ index +" ',"
                                 + "'"+ keterangan +" ',"
-                                + "'"+ textField_Angkatan.getText() +" ')";
+                                + "'"+ textField_Angkatan.getYear() +" ')";
                 
                 stt.executeUpdate(SQL);
-                data[0] = textField_NIM.getText();
-                data[1] = textField_KodeMataKuliah.getText();
-                data[2] = String.valueOf(comboBox_Nama.getSelectedItem());
-                data[3] = String.valueOf(comboBox_NamaMataKuliah.getSelectedItem());
-                data[4] = String.valueOf(Tugas1);
-                data[5] = String.valueOf(Tugas2);
-                data[6] = String.valueOf(Tugas3);
-                data[7] = String.valueOf(UTS);
-                data[8] = String.valueOf(UAS);
-                data[9] = String.valueOf(nilaiAbsen);
-                data[10] = String.valueOf(nilaiUAS);
-                data[11] = String.valueOf(nilaiAkhir);
-                data[12] = String.valueOf(indeks);
-                data[13] = String.valueOf(keterangan);
-                data[14] = String.valueOf(textField_Kehadiran.getText());
+                data[0] = String.valueOf(comboBox_Nama.getSelectedItem());
+                data[1] = String.valueOf(comboBox_NamaMataKuliah.getSelectedItem());
+                data[2] = textField_Kehadiran.getText();
+                data[3] = String.valueOf(Tugas1);
+                data[4] = String.valueOf(Tugas2);
+                data[5] = String.valueOf(Tugas3);
+                data[6] = String.valueOf(UTS);
+                data[7] = String.valueOf(UAS);
+                data[8] = String.valueOf(df.format(nilaiAbsen));
+                data[9] = String.valueOf(df.format(nilaiTugas));
+                data[10] = String.valueOf(df.format(nilaiUTS));
+                data[11] = String.valueOf(df.format(nilaiUAS));
+                data[12] = String.valueOf(df.format(nilaiAkhir));
+                data[13] = String.valueOf(index);
+                data[14] = String.valueOf(keterangan);
                 tableModel.insertRow(0, data);
                 stt.close();
                 kon.close();
@@ -676,24 +703,46 @@ public class frame_nilaiMahasiswa extends javax.swing.JFrame {
 
     private void button_UbahMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_button_UbahMouseClicked
         // TODO add your handling code here:
-        int Nama = comboBox_Nama.getSelectedIndex();
-        //String NamaMK = textField_NamaMataKuliah.getText();
-        String Absensi = textField_Kehadiran.getText();
-        String Tugas1 = textField_Tugas1.getText();
-        String Tugas2 = textField_Tugas2.getText();
-        String Tugas3 = textField_Tugas3.getText();
-        String UTS = textField_UTS.getText();
-        String UAS = textField_UAS.getText();
-        //String NilaiAbsen = textField_UAS.getText();
-        //String NilaiTugas = textField_UAS.getText();
-        //String NilaiUTS = textField_UAS.getText();
-        //String NilaiUAS = textField_UAS.getText();
-        //String NilaiAkhir = textField_UAS.getText();
-        //String Indeks = textField_UAS.getText();
-        //String Keterangan = textField_UAS.getText();
-        String Angkatan = textField_Angkatan.getText();
+        DecimalFormat df=new DecimalFormat("#.##");
+        double Tugas1, Tugas2, Tugas3, UTS, UAS;
+        double nilaiAbsen, nilaiTugas, nilaiUTS, nilaiUAS, nilaiAkhir;
+        String indeks = null, keterangan = null;
         
-        if ((Absensi.isEmpty()) | (Absensi.isEmpty())) {
+        // inisialisasi variable
+        Tugas1 = Double.valueOf(textField_Tugas1.getText());
+        Tugas3 = Double.valueOf(textField_Tugas2.getText());
+        Tugas2 = Double.valueOf(textField_Tugas3.getText());
+        UTS = Double.valueOf(textField_UTS.getText());
+        UAS = Double.valueOf(textField_UAS.getText());
+        
+        // inisialisasi variable
+        nilaiAbsen = (((Double.valueOf(textField_Kehadiran.getText()) / 14) * 100 * 5) / 100);
+        nilaiTugas = (((Tugas1 + Tugas2 + Tugas3) / 3) * 25 / 100);
+        nilaiUTS = UTS * 0.3;
+        nilaiUAS = UAS * 0.4;
+        nilaiAkhir = nilaiAbsen + nilaiTugas + nilaiUTS + nilaiUAS;
+        
+        if (nilaiAkhir >= 80 && nilaiAkhir <=100) {
+            indeks = "A";
+        } else if (nilaiAkhir >=68 && nilaiAkhir <= 79) {
+            indeks = "B";
+        } else if (nilaiAkhir >=56 && nilaiAkhir <= 67) {
+            indeks = "C";
+        } else if (nilaiAkhir >=45 && nilaiAkhir <= 55) {
+            indeks = "D";
+        } else if (nilaiAkhir >= 0 && nilaiAkhir <= 44) {
+            indeks = "E";
+        }
+        
+        if (indeks.equals("A") || indeks.equals("B") || indeks.equals("C")){
+            keterangan = "Lulus";
+        } else {
+            keterangan = "Tidak Lulus";
+        }
+        
+        int tahunAngkatan = textField_Angkatan.getYear();
+        
+        if ((textField_Kehadiran.getText().isEmpty())) {
             JOptionPane.showMessageDialog(null, "Data Tidak Boleh Kosong, Silahkan Dilengkapi!");
             textField_NIM.requestFocus();
         } else {
@@ -702,32 +751,42 @@ public class frame_nilaiMahasiswa extends javax.swing.JFrame {
                 Connection kon = DriverManager.getConnection(database, user, pass);
                 Statement stt = kon.createStatement();
                 String SQL = "UPDATE `t_nilai` "
-                                + "SET `nama`='"+Nama+"',"
-                                //+ "`nim`='"+NIM+"',"
-                                + "`kehadiran`='"+Absensi+"',"
-                                + "`tugas1`='"+Tugas1+"',"
-                                + "`tugas2`='"+Tugas2+"',"
-                                + "`tugas3`='"+Tugas3+"',"
-                                //+ "`nama_mk`='"+NamaMK+"',"
-                                //+ "`kode_mk`='"+KodeMK+"',"
-                                //+ "`uts`='"+UTS+"',"
-                                //+ "`uas`='"+UAS+"',"
-                                + "`angkatan`='"+Angkatan+"' "
+                                + "SET `nim`='"+textField_NIM.getText()+"',"
+                                + "`kode_mk`='"+textField_KodeMataKuliah.getText()+"',"
+                                + "`nama`='"+comboBox_Nama.getSelectedItem()+"',"
+                                + "`nama_mk`='"+comboBox_NamaMataKuliah.getSelectedItem()+"',"
+                                + "`absensi`='"+textField_Kehadiran.getText()+"',"
+                                + "`tgs1`='"+Tugas1+"',"
+                                + "`tgs2`='"+Tugas2+"',"
+                                + "`tgs3`='"+Tugas3+"',"
+                                + "`uts`='"+UTS+"',"
+                                + "`uas`='"+UAS+"',"
+                                + "`nilai_absen`='"+df.format(nilaiAbsen)+"',"
+                                + "`nilai_tugas`='"+df.format(nilaiTugas)+"',"
+                                + "`nilai_uts`='"+df.format(nilaiUTS)+"',"
+                                + "`nilai_uas`='"+df.format(nilaiUAS)+"',"
+                                + "`nilai_akhir`='"+df.format(nilaiAkhir)+"',"
+                                + "`indeks`='"+indeks+"',"
+                                + "`keterangan`='"+keterangan+"',"
+                                + "`angkatan`='"+tahunAngkatan+"' "
                             + "WHERE "
-                            + "`nim`='"+tableModel.getValueAt(row, 0).toString()+"';";
+                            + "`nama`='"+tableModel.getValueAt(row, 0).toString()+"';";
                 stt.executeUpdate(SQL);
-                //data[0] = parseString(Nama);
-                //data[1] = NamaMK;
-                data[2] = Absensi;
-                data[3] = Tugas1;
-                data[4] = Tugas2;
-                data[5] = Tugas3;
-                data[6] = UTS;
-                data[7] = UAS;
-                //data[8] = textField_Tugas3.getText();
-                //data[9] = textField_NamaMataKuliah.getText();
-                //data[10] = textField_KodeMataKuliah.getText();
-                //data[11] = textField_UTS.getText();
+                data[0] = String.valueOf(comboBox_Nama.getSelectedItem());
+                data[1] = String.valueOf(comboBox_NamaMataKuliah.getSelectedItem());
+                data[2] = textField_Kehadiran.getText();
+                data[3] = String.valueOf(Tugas1);
+                data[4] = String.valueOf(Tugas2);
+                data[5] = String.valueOf(Tugas3);
+                data[6] = String.valueOf(UTS);
+                data[7] = String.valueOf(UAS);
+                data[8] = String.valueOf(df.format(nilaiAbsen));
+                data[9] = String.valueOf(df.format(nilaiTugas));
+                data[10] = String.valueOf(df.format(nilaiUTS));
+                data[11] = String.valueOf(df.format(nilaiUAS));
+                data[12] = String.valueOf(df.format(nilaiAkhir));
+                data[13] = String.valueOf(indeks);
+                data[14] = String.valueOf(keterangan);
                 tableModel.removeRow(row);
                 tableModel.insertRow(row, data);
                 stt.close();
@@ -785,6 +844,10 @@ public class frame_nilaiMahasiswa extends javax.swing.JFrame {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
+        textField_NIM.setEditable(false);
+        textField_Kehadiran.requestFocus();
+        textField_KodeMataKuliah.setEditable(false);
+        textField_Angkatan.setEnabled(false);
         // untuk comboBox nama
         try {
             Class.forName(driver);
@@ -888,6 +951,61 @@ public class frame_nilaiMahasiswa extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_comboBox_NamaMataKuliahActionPerformed
 
+    private void textField_MasukkanDataKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textField_MasukkanDataKeyReleased
+        // TODO add your handling code here:
+        if (textField_MasukkanData.getText().isEmpty()) {
+          tableModel.setRowCount(0);
+          settableload();
+      } else {
+        // menghapus seluruh isi data di dalam jtable
+        tableModel.setRowCount(0);
+        // gunakan query untuk mencari
+        try
+        {
+            Class.forName(driver);
+            Connection kon = DriverManager.getConnection(
+                             database,
+                             user,
+                             pass);
+            Statement stt = kon.createStatement();
+            String SQL = "select kode_nilai, nim, kode_mk, nama, nama_mk, absensi,"
+                        + "tgs1, tgs2, tgs3, uts, uas,"
+                        + "nilai_absen, nilai_tugas, nilai_uts, nilai_uas,"
+                        + "nilai_akhir, indeks, keterangan from t_nilai where nama like '%"+textField_MasukkanData.getText()+"%'";
+            ResultSet res = stt.executeQuery(SQL);
+            while(res.next())
+            {
+                data[0] = res.getString(4);
+                data[1] = res.getString(5);
+                data[2] = res.getString(6);
+                data[3] = res.getString(7);
+                data[4] = res.getString(8);
+                data[5] = res.getString(9);
+                data[6] = res.getString(10);
+                data[7] = res.getString(11);
+                data[8] = res.getString(12);
+                data[9] = res.getString(13);
+                data[10] = res.getString(14);
+                data[11] = res.getString(15);
+                data[12] = res.getString(16);
+                data[13] = res.getString(17);
+                data[14] = res.getString(18);
+                tableModel.addRow(data);
+            }
+            res.close();
+            stt.close();
+            kon.close();
+        }
+        catch (Exception ex)
+        {
+            System.err.println(ex.getMessage());
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error",
+                    JOptionPane.INFORMATION_MESSAGE);
+            System.exit(0);
+        }
+      }
+    }//GEN-LAST:event_textField_MasukkanDataKeyReleased
+
     /**
      * @param args the command line arguments
      */
@@ -954,7 +1072,7 @@ public class frame_nilaiMahasiswa extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JTable tabel_DataNilaiMahasiswa;
-    private javax.swing.JTextField textField_Angkatan;
+    private com.toedter.calendar.JYearChooser textField_Angkatan;
     private javax.swing.JTextField textField_Kehadiran;
     private javax.swing.JTextField textField_KodeMataKuliah;
     private javax.swing.JTextField textField_MasukkanData;

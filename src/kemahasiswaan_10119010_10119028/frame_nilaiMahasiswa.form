@@ -49,15 +49,13 @@
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="textField_Tugas2" min="-2" pref="53" max="-2" attributes="0"/>
                                           <Component id="textField_Tugas1" min="-2" pref="53" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                              <Group type="102" attributes="0">
-                                                  <Component id="textField_Kehadiran" min="-2" pref="53" max="-2" attributes="0"/>
-                                                  <EmptySpace max="32767" attributes="0"/>
-                                                  <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
-                                              </Group>
-                                              <Component id="comboBox_Nama" min="-2" max="-2" attributes="0"/>
-                                              <Component id="textField_NIM" min="-2" pref="151" max="-2" attributes="0"/>
+                                          <Group type="102" attributes="0">
+                                              <Component id="textField_Kehadiran" min="-2" pref="53" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
                                           </Group>
+                                          <Component id="comboBox_Nama" min="-2" max="-2" attributes="0"/>
+                                          <Component id="textField_NIM" min="-2" pref="151" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace pref="378" max="32767" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
@@ -81,9 +79,9 @@
                                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                           <Component id="textField_UTS" min="-2" pref="53" max="-2" attributes="0"/>
                                           <Component id="textField_KodeMataKuliah" max="32767" attributes="0"/>
-                                          <Component id="textField_UAS" min="-2" pref="53" max="-2" attributes="0"/>
-                                          <Component id="textField_Angkatan" min="-2" pref="53" max="-2" attributes="0"/>
                                           <Component id="comboBox_NamaMataKuliah" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="textField_Angkatan" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="textField_UAS" alignment="0" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <Group type="102" attributes="0">
@@ -152,7 +150,16 @@
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
-                  <Group type="102" attributes="0">
+                  <Group type="102" alignment="1" attributes="0">
+                      <Component id="jLabel15" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="textField_Tugas3" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
                       <Component id="jSeparator2" min="-2" pref="10" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -183,21 +190,22 @@
                           <Component id="textField_UAS" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel14" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="textField_Tugas2" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="textField_Angkatan" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="textField_Tugas2" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
+                              <Component id="textField_Angkatan" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
+                      <EmptySpace pref="39" max="32767" attributes="0"/>
                   </Group>
-                  <Component id="jLabel15" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="textField_Tugas3" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace max="-2" attributes="0"/>
               <Component id="jSeparator3" min="-2" pref="10" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="113" max="-2" attributes="0"/>
@@ -270,6 +278,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="textField_MasukkanData">
+      <Events>
+        <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="textField_MasukkanDataKeyReleased"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JSeparator" name="jSeparator2">
     </Component>
@@ -384,8 +395,6 @@
     <Component class="javax.swing.JTextField" name="textField_UTS">
     </Component>
     <Component class="javax.swing.JTextField" name="textField_UAS">
-    </Component>
-    <Component class="javax.swing.JTextField" name="textField_Angkatan">
     </Component>
     <Component class="javax.swing.JSeparator" name="jSeparator3">
     </Component>
@@ -503,6 +512,8 @@
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
+    </Component>
+    <Component class="com.toedter.calendar.JYearChooser" name="textField_Angkatan">
     </Component>
   </SubComponents>
 </Form>
