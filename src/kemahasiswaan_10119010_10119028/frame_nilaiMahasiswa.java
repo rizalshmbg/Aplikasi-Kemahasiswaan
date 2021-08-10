@@ -187,7 +187,7 @@ public class frame_nilaiMahasiswa extends javax.swing.JFrame {
         
         row = tabel_DataNilaiMahasiswa.getSelectedRow();
 //        textField_NIM.setText(tableModel.getValueAt(row, 1).toString());
-         comboBox_Nama.setSelectedItem(tableModel.getValueAt(row, 0).toString());
+        comboBox_Nama.setSelectedItem(tableModel.getValueAt(row, 0).toString());
         textField_Kehadiran.setText(tableModel.getValueAt(row, 2).toString());
         textField_Tugas1.setText(tableModel.getValueAt(row, 3).toString());
         textField_Tugas2.setText(tableModel.getValueAt(row, 4).toString());
@@ -260,6 +260,7 @@ public class frame_nilaiMahasiswa extends javax.swing.JFrame {
         jSeparator4 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Form Nilai Mahasiswa - Aplikasi Kemahasiswaan");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 formWindowClosed(evt);

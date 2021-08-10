@@ -187,6 +187,7 @@ public class frame_mahasiswa extends javax.swing.JFrame {
         tabel_DataMahasiswa = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Form Mahasiswa - Aplikasi Kemahasiswaan");
         setBackground(new java.awt.Color(186, 79, 84));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {

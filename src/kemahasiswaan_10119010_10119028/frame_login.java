@@ -99,6 +99,7 @@ public class frame_login extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Login Aplikasi Kemahasiswaan");
 
         jPanel3.setBackground(new java.awt.Color(74, 31, 61));
 
@@ -109,8 +110,6 @@ public class frame_login extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(186, 79, 84));
         jLabel5.setText("K E M A H A S I S W A A N");
-
-        jLabel6.setIcon(new javax.swing.ImageIcon("F:\\NetBeansProjects\\ProVis\\kemahasiswaan_10119010_10119028\\src\\gambar\\part-time.png")); // NOI18N
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);

@@ -102,20 +102,16 @@ public class frame_simulasiKasus extends javax.swing.JFrame {
         lblTotal.setText("");
 //        tanggalTransaksi.setCalendar(null);
         txt_AtasNama.setText("");
-        button_Hapus.setEnabled(false);
-        button_Ubah.setEnabled(false);
-        button_Simpan.setEnabled(true);
     }
 
     // fungsi menampilkan data di dalam masing-masing jTextField
-    int row = 0;
+    int row = 1;
     public void tampil_field() {
         row = tabel_Transaksi.getSelectedRow();
         combobox_NamaMenu.setSelectedItem(tableModel.getValueAt(row, 0).toString());
         txt_HargaItem.setText(tableModel.getValueAt(row, 1).toString());
         txt_Jumlah.setText(tableModel.getValueAt(row, 2).toString());
         lblTotal.setText("Rp. "+tableModel.getValueAt(row, 3).toString());
-        txt_AtasNama.setText(tableModel.getValueAt(row, 5).toString());
 //        textField_TanggalLahir.setText(tableModel.getValueAt(row, 3).toString());
         String s = (String)(tableModel.getValueAt(row, 4));
         try{
@@ -125,6 +121,7 @@ public class frame_simulasiKasus extends javax.swing.JFrame {
         }catch(Exception ex){
             ex.printStackTrace();
         }
+        txt_AtasNama.setText(tableModel.getValueAt(row, 5).toString());
         button_Ubah.setEnabled(true);
         button_Hapus.setEnabled(true);
         button_Simpan.setEnabled(false);
@@ -168,6 +165,7 @@ public class frame_simulasiKasus extends javax.swing.JFrame {
         tanggalTransaksi = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Form Simulasi Kasus - Aplikasi Kemahasiswaan");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 formWindowClosed(evt);
@@ -209,6 +207,7 @@ public class frame_simulasiKasus extends javax.swing.JFrame {
         jLabel3.setText("Nama Menu");
 
         combobox_NamaMenu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "~ PIlih Menu ~" }));
+        combobox_NamaMenu.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         combobox_NamaMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 combobox_NamaMenuActionPerformed(evt);
@@ -364,7 +363,7 @@ public class frame_simulasiKasus extends javax.swing.JFrame {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 596, Short.MAX_VALUE)
             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel3Layout.createSequentialGroup()
                     .addContainerGap()
@@ -394,7 +393,7 @@ public class frame_simulasiKasus extends javax.swing.JFrame {
                                             .addComponent(jLabel3)
                                             .addComponent(jLabel2)
                                             .addComponent(jLabel7))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
                                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(txt_Jumlah, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(txt_IdItem, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -480,6 +479,10 @@ public class frame_simulasiKasus extends javax.swing.JFrame {
     private void button_BatalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_BatalActionPerformed
         // TODO add your handling code here:
         membersihkan_teks();
+        button_Ubah.setEnabled(false);
+        button_Hapus.setEnabled(false);
+        button_Simpan.setEnabled(true);
+        button_Batal.setEnabled(true); 
     }//GEN-LAST:event_button_BatalActionPerformed
 
     private void button_KeluarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_KeluarActionPerformed
@@ -497,6 +500,7 @@ public class frame_simulasiKasus extends javax.swing.JFrame {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
+        button_Batal.setEnabled(true);
         txt_IdItem.setEditable(false);
         txt_HargaItem.setEditable(false);
         Date date = new Date();
@@ -511,8 +515,8 @@ public class frame_simulasiKasus extends javax.swing.JFrame {
             String SQL = "select nama_item from t_item";
             ResultSet res = stt.executeQuery(SQL);
             while (res.next()) {
-                String namaMK = res.getString(1);
-                combobox_NamaMenu.addItem(String.valueOf(namaMK));
+                String namaMenu = res.getString(1);
+                combobox_NamaMenu.addItem(String.valueOf(namaMenu));
             }
             res.close();
             stt.close();
@@ -532,7 +536,8 @@ public class frame_simulasiKasus extends javax.swing.JFrame {
         String tanggaltransaksi = String.valueOf(f.format(tanggalTransaksi.getDate()));
         int totalBayar = Integer.parseInt(txt_HargaItem.getText()) * Integer.parseInt(txt_Jumlah.getText());
         if ((lblTotal.getText().isEmpty()) || (tanggaltransaksi.isEmpty()) || (combobox_NamaMenu.getSelectedIndex() == 0)
-                || (txt_Jumlah.getText().isEmpty()) || (txt_AtasNama.getText().isEmpty())) {
+                || (txt_Jumlah.getText().isEmpty()) || (txt_AtasNama.getText().isEmpty()) || (txt_IdItem.getText().isEmpty())
+                || (txt_HargaItem.getText().isEmpty())) {
             JOptionPane.showMessageDialog(null,
                             "Data Tidak Boleh Kosong, Silahkan Dilengkapi!");
             txt_Jumlah.requestFocus();
@@ -569,6 +574,8 @@ public class frame_simulasiKasus extends javax.swing.JFrame {
                 kon.close();
                 membersihkan_teks();
                 button_Simpan.setEnabled(true);
+                button_Ubah.setEnabled(false);
+                button_Hapus.setEnabled(false);
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(null,
                     ex.getMessage(),"Error",
@@ -577,38 +584,6 @@ public class frame_simulasiKasus extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_button_SimpanActionPerformed
-
-    private void combobox_NamaMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combobox_NamaMenuActionPerformed
-        // TODO add your handling code here:
-         // deklarasi variable
-        int namaMenu = combobox_NamaMenu.getSelectedIndex();
-        
-        if (namaMenu==0) {
-            txt_IdItem.setText("");
-            txt_HargaItem.setText("");
-        } else {
-            try {
-            Class.forName(driver);
-            Connection kon = DriverManager.getConnection(database, user, pass);
-            Statement stt = kon.createStatement();
-            String SQL = "select id_item, nama_item, harga_item from t_item "
-                        + "where nama_item= '"+combobox_NamaMenu.getSelectedItem()+"'";
-            ResultSet res = stt.executeQuery(SQL);
-            while (res.next()) {
-                txt_IdItem.setText(res.getString(1));
-                txt_HargaItem.setText(res.getString(3));
-            }
-            res.close();
-            stt.close();
-            kon.close();
-            } catch (Exception ex) {
-              JOptionPane.showMessageDialog(null,
-                        ex.getMessage(), "Error",
-                        JOptionPane.INFORMATION_MESSAGE
-                );
-            }
-        }
-    }//GEN-LAST:event_combobox_NamaMenuActionPerformed
 
     private void tabel_TransaksiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabel_TransaksiMouseClicked
         // TODO add your handling code here:
@@ -637,7 +612,8 @@ public class frame_simulasiKasus extends javax.swing.JFrame {
         int totalBayar = Integer.parseInt(txt_HargaItem.getText()) * Integer.parseInt(txt_Jumlah.getText());
         
         if ((lblTotal.getText().isEmpty()) || (tanggaltransaksi.isEmpty()) || (combobox_NamaMenu.getSelectedIndex() == 0)
-                || (txt_Jumlah.getText().isEmpty()) || (txt_AtasNama.getText().isEmpty())) {
+                || (txt_Jumlah.getText().isEmpty()) || (txt_AtasNama.getText().isEmpty()) || (txt_IdItem.getText().isEmpty())
+                || (txt_HargaItem.getText().isEmpty())) {
             JOptionPane.showMessageDialog(null,
                             "Data Tidak Boleh Kosong, Silahkan Dilengkapi!");
             txt_Jumlah.requestFocus();
@@ -697,6 +673,38 @@ public class frame_simulasiKasus extends javax.swing.JFrame {
             System.err.println(ex.getMessage());
         }
     }//GEN-LAST:event_button_HapusActionPerformed
+
+    private void combobox_NamaMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combobox_NamaMenuActionPerformed
+        // TODO add your handling code here:
+        // deklarasi variable
+        int namaMenu = combobox_NamaMenu.getSelectedIndex();
+
+        if (namaMenu==0) {
+            txt_IdItem.setText("");
+            txt_HargaItem.setText("");
+        } else {
+            try {
+                Class.forName(driver);
+                Connection kon = DriverManager.getConnection(database, user, pass);
+                Statement stt = kon.createStatement();
+                String SQL = "select id_item, nama_item, harga_item from t_item "
+                + "where nama_item= '"+combobox_NamaMenu.getSelectedItem()+"'";
+                ResultSet res = stt.executeQuery(SQL);
+                while (res.next()) {
+                    txt_IdItem.setText(res.getString(1));
+                    txt_HargaItem.setText(res.getString(3));
+                }
+                res.close();
+                stt.close();
+                kon.close();
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null,
+                    ex.getMessage(), "Error",
+                    JOptionPane.INFORMATION_MESSAGE
+                );
+            }
+        }
+    }//GEN-LAST:event_combobox_NamaMenuActionPerformed
 
     /**
      * @param args the command line arguments
