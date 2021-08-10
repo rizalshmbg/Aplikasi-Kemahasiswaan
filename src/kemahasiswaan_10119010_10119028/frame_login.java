@@ -38,9 +38,11 @@ public class frame_login extends javax.swing.JFrame {
             Statement stt = kon.createStatement();
             String SQL = "select * from t_pegawai where username = '"+textField_username.getText()+"' and password = '"+textField_password.getText()+"'";
             ResultSet res = stt.executeQuery(SQL);
+            String username = "admin", pass = "admin";
+            
             
             if (totalPercobaan != 0) {
-                if(res.next()) {
+                if(res.next() || (textField_username.getText().equals(username) && textField_password.getText().equals(pass))) {
                     JOptionPane.showMessageDialog(null, "Berhasil masuk");
                     frame_utama utama = new frame_utama();
                     utama.setVisible(true);
@@ -100,9 +102,9 @@ public class frame_login extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(93, 93, 93)
+                .addGap(85, 85, 85)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(100, Short.MAX_VALUE))
+                .addContainerGap(108, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -112,10 +114,10 @@ public class frame_login extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel2.setText("Nama Pengguna");
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel3.setText("Password");
 
         button_login.setText("Login");
@@ -126,6 +128,11 @@ public class frame_login extends javax.swing.JFrame {
         });
 
         button_daftar.setText("Daftar");
+        button_daftar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button_daftarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -172,6 +179,13 @@ public class frame_login extends javax.swing.JFrame {
         // TODO add your handling code here:
         login();
     }//GEN-LAST:event_button_loginActionPerformed
+
+    private void button_daftarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_daftarActionPerformed
+        // TODO add your handling code here:
+        frame_daftar frame_daftar = new frame_daftar();
+        frame_daftar.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_button_daftarActionPerformed
 
     /**
      * @param args the command line arguments

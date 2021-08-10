@@ -157,27 +157,25 @@ public class frame_nilaiMahasiswa extends javax.swing.JFrame {
     
     // fungsi menonaktifkan teks
     public void nonaktif_teks() {
-        textField_MasukkanData.setEnabled(false);
-        textField_NIM.setEnabled(false);
+//        textField_MasukkanData.setEnabled(false);
         textField_Kehadiran.setEnabled(false);
         textField_Tugas1.setEnabled(false);
         textField_Tugas2.setEnabled(false);
         textField_Tugas3.setEnabled(false);
-        textField_KodeMataKuliah.setEnabled(false);
+//        textField_KodeMataKuliah.setEnabled(false);
         textField_UTS.setEnabled(false);
         textField_UAS.setEnabled(false);
     }
     
     // fungsi aktif teks
     public void aktif_teks() {
-        textField_MasukkanData.setEnabled(true);
-        textField_NIM.setEnabled(true);
+//        textField_MasukkanData.setEnabled(true);
         textField_Kehadiran.setEnabled(true);
         textField_Tugas1.setEnabled(true);
         textField_Tugas2.setEnabled(true);
         textField_Tugas3.setEnabled(true);
         //textField_NamaMataKuliah.setEnabled(true);
-        textField_KodeMataKuliah.setEnabled(true);
+//        textField_KodeMataKuliah.setEnabled(true);
         textField_UTS.setEnabled(true);
         textField_UAS.setEnabled(true);
     }
@@ -205,6 +203,8 @@ public class frame_nilaiMahasiswa extends javax.swing.JFrame {
         button_Ubah.setEnabled(true);
         button_Hapus.setEnabled(true);
         button_Simpan.setEnabled(false);
+        button_Keluar.setEnabled(false);
+        button_Tambah.setEnabled(false);
         button_Batal.setEnabled(true);
         aktif_teks();
     }
@@ -454,11 +454,12 @@ public class frame_nilaiMahasiswa extends javax.swing.JFrame {
                                             .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.TRAILING))
                                         .addGap(140, 140, 140)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(textField_UTS, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(textField_KodeMataKuliah)
                                             .addComponent(comboBox_NamaMataKuliah, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(textField_Angkatan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(textField_UAS)))
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                                .addComponent(textField_Angkatan, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(textField_UAS, javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(textField_UTS, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 53, Short.MAX_VALUE))))
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(textField_Tugas3, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(0, 0, Short.MAX_VALUE))))
@@ -576,11 +577,13 @@ public class frame_nilaiMahasiswa extends javax.swing.JFrame {
     private void button_TambahMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_button_TambahMouseClicked
         // TODO add your handling code here:
         membersihkan_teks();
-        textField_NIM.requestFocus();
+        textField_Kehadiran.requestFocus();
+        button_Batal.setEnabled(true);
         button_Ubah.setEnabled(false);
         button_Hapus.setEnabled(false);
         button_Simpan.setEnabled(true);
         button_Keluar.setEnabled(false);
+        button_Tambah.setEnabled(false);
         aktif_teks();
     }//GEN-LAST:event_button_TambahMouseClicked
 
@@ -611,7 +614,11 @@ public class frame_nilaiMahasiswa extends javax.swing.JFrame {
         keterangan = keterangan(convertIndexToStr);
         
         String data[]=new String[15];
-        if ((textField_NIM.getText().isEmpty()) || (textField_Kehadiran.getText().isEmpty())) {
+        if ((textField_NIM.getText().isEmpty()) || (comboBox_Nama.getSelectedIndex() == 0) || 
+                (textField_Kehadiran.getText().isEmpty()) || (textField_Tugas1.getText().isEmpty()) || (textField_Tugas2.getText().isEmpty())
+                || (textField_Tugas3.getText().isEmpty()) || (comboBox_NamaMataKuliah.getSelectedIndex() == 0)
+                || (textField_KodeMataKuliah.getText().isEmpty()) || (textField_UTS.getText().isEmpty())
+                || (textField_UAS.getText().isEmpty())) {
             JOptionPane.showMessageDialog(null,
                             "Data Tidak Boleh Kosong, Silahkan Dilengkapi!");
             textField_NIM.requestFocus();
@@ -679,9 +686,9 @@ public class frame_nilaiMahasiswa extends javax.swing.JFrame {
                 kon.close();
                 membersihkan_teks();
                 button_Tambah.setEnabled(true);
-                button_Ubah.setEnabled(true);
-                button_Hapus.setEnabled(true);
-                button_Simpan.setEnabled(true);
+                button_Ubah.setEnabled(false);
+                button_Hapus.setEnabled(false);
+                button_Simpan.setEnabled(false);
                 button_Batal.setEnabled(true);
                 button_Keluar.setEnabled(true);
                 nonaktif_teks();
@@ -742,7 +749,11 @@ public class frame_nilaiMahasiswa extends javax.swing.JFrame {
         
         int tahunAngkatan = textField_Angkatan.getYear();
         
-        if ((textField_Kehadiran.getText().isEmpty())) {
+        if ((textField_NIM.getText().isEmpty()) || (comboBox_Nama.getSelectedIndex() == 0) || 
+                (textField_Kehadiran.getText().isEmpty()) || (textField_Tugas1.getText().isEmpty()) || (textField_Tugas2.getText().isEmpty())
+                || (textField_Tugas3.getText().isEmpty()) || (comboBox_NamaMataKuliah.getSelectedIndex() == 0)
+                || (textField_KodeMataKuliah.getText().isEmpty()) || (textField_UTS.getText().isEmpty())
+                || (textField_UAS.getText().isEmpty())) {
             JOptionPane.showMessageDialog(null, "Data Tidak Boleh Kosong, Silahkan Dilengkapi!");
             textField_NIM.requestFocus();
         } else {
@@ -792,7 +803,12 @@ public class frame_nilaiMahasiswa extends javax.swing.JFrame {
                 stt.close();
                 kon.close();
                 membersihkan_teks();
+                button_Tambah.setEnabled(true);
+                button_Ubah.setEnabled(false);
+                button_Hapus.setEnabled(false);
                 button_Simpan.setEnabled(false);
+                button_Batal.setEnabled(true);
+                button_Keluar.setEnabled(true);
                 nonaktif_teks();
             } catch (Exception ex) {
                 System.err.println(ex.getMessage());
@@ -813,6 +829,13 @@ public class frame_nilaiMahasiswa extends javax.swing.JFrame {
             stt.close();
             kon.close();
             membersihkan_teks();
+            button_Tambah.setEnabled(true);
+            button_Ubah.setEnabled(false);
+            button_Hapus.setEnabled(false);
+            button_Simpan.setEnabled(false);
+            button_Batal.setEnabled(true);
+            button_Keluar.setEnabled(true);
+            nonaktif_teks();
         } catch (Exception ex) {
             System.err.println(ex.getMessage());
         }
@@ -835,17 +858,25 @@ public class frame_nilaiMahasiswa extends javax.swing.JFrame {
         // TODO add your handling code here:
         membersihkan_teks();
         button_Tambah.setEnabled(true);
-        button_Ubah.setEnabled(true);
-        button_Hapus.setEnabled(true);
-        button_Simpan.setEnabled(true);
+        button_Ubah.setEnabled(false);
+        button_Hapus.setEnabled(false);
+        button_Simpan.setEnabled(false);
         button_Batal.setEnabled(true);
         button_Keluar.setEnabled(true);
+        nonaktif_teks();
     }//GEN-LAST:event_button_BatalMouseClicked
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
         textField_NIM.setEditable(false);
-        textField_Kehadiran.requestFocus();
+        
+        textField_Kehadiran.setEnabled(false);
+        textField_Tugas1.setEnabled(false);
+        textField_Tugas2.setEnabled(false);
+        textField_Tugas3.setEnabled(false);
+        textField_UTS.setEnabled(false);
+        textField_UAS.setEnabled(false);
+        
         textField_KodeMataKuliah.setEditable(false);
         textField_Angkatan.setEnabled(false);
         // untuk comboBox nama

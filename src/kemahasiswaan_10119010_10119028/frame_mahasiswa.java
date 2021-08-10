@@ -98,13 +98,13 @@ public class frame_mahasiswa extends javax.swing.JFrame {
         textField_NIM.setText("");
         textField_Nama.setText("");
         textField_TempatLahir.setText("");
-        textField_TanggalLahir.setText("");
+        textField_TanggalLahir.setCalendar(null);
         textArea_Alamat.setText("");
     }
     
     // fungsi menonaktifkan teks
     public void nonaktif_teks() {
-        textField_MasukkanData.setEnabled(false);
+//        textField_MasukkanData.setEnabled(false);
         textField_NIM.setEnabled(false);
         textField_Nama.setEnabled(false);
         textField_TempatLahir.setEnabled(false);
@@ -114,7 +114,7 @@ public class frame_mahasiswa extends javax.swing.JFrame {
     
     // fungsi aktif teks
     public void aktif_teks() {
-        textField_MasukkanData.setEnabled(true);
+//        textField_MasukkanData.setEnabled(true);
         textField_NIM.setEnabled(true);
         textField_Nama.setEnabled(true);
         textField_TempatLahir.setEnabled(true);
@@ -129,12 +129,22 @@ public class frame_mahasiswa extends javax.swing.JFrame {
         textField_NIM.setText(tableModel.getValueAt(row, 0).toString());
         textField_Nama.setText(tableModel.getValueAt(row, 1).toString());
         textField_TempatLahir.setText(tableModel.getValueAt(row, 2).toString());
-        textField_TanggalLahir.setText(tableModel.getValueAt(row, 3).toString());
+//        textField_TanggalLahir.setText(tableModel.getValueAt(row, 3).toString());
+        String s = (String)(tableModel.getValueAt(row, 3));
+        try{
+            SimpleDateFormat f=new SimpleDateFormat("yyyy-M-dd"); 
+            java.util.Date d=f.parse(s);
+            textField_TanggalLahir.setDate(d);
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
         textArea_Alamat.setText(tableModel.getValueAt(row, 4).toString());
         button_Ubah.setEnabled(true);
         button_Hapus.setEnabled(true);
         button_Simpan.setEnabled(false);
         button_Batal.setEnabled(true);
+        button_Tambah.setEnabled(false);
+        button_Keluar.setEnabled(false);
         aktif_teks();
     }
 
@@ -161,7 +171,6 @@ public class frame_mahasiswa extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         textField_TempatLahir = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        textField_TanggalLahir = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         textArea_Alamat = new javax.swing.JTextArea();
@@ -175,11 +184,15 @@ public class frame_mahasiswa extends javax.swing.JFrame {
         button_Simpan = new javax.swing.JButton();
         button_Batal = new javax.swing.JButton();
         button_Keluar = new javax.swing.JButton();
+        textField_TanggalLahir = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 formWindowClosed(evt);
+            }
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
             }
         });
 
@@ -208,6 +221,12 @@ public class frame_mahasiswa extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel3.setText("Masukkan Data");
+
+        textField_MasukkanData.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                textField_MasukkanDataKeyReleased(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel4.setText("NIM");
@@ -264,6 +283,11 @@ public class frame_mahasiswa extends javax.swing.JFrame {
                 button_HapusMouseClicked(evt);
             }
         });
+        button_Hapus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button_HapusActionPerformed(evt);
+            }
+        });
 
         button_Simpan.setText("SIMPAN");
         button_Simpan.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -276,6 +300,11 @@ public class frame_mahasiswa extends javax.swing.JFrame {
         button_Batal.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 button_BatalMouseClicked(evt);
+            }
+        });
+        button_Batal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button_BatalActionPerformed(evt);
             }
         });
 
@@ -315,9 +344,9 @@ public class frame_mahasiswa extends javax.swing.JFrame {
                             .addComponent(jLabel7)
                             .addComponent(jLabel8))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(textField_TanggalLahir, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                            .addComponent(textField_TanggalLahir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addComponent(jScrollPane2)
                     .addComponent(jSeparator4)
                     .addComponent(jSeparator3)
@@ -359,37 +388,38 @@ public class frame_mahasiswa extends javax.swing.JFrame {
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4)
-                    .addComponent(textField_NIM, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel7)
-                        .addComponent(textField_TanggalLahir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5)
-                            .addComponent(textField_Nama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel8))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addComponent(textField_NIM, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel7))
                         .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel5)
+                                    .addComponent(textField_Nama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel8))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel6)
+                                    .addComponent(textField_TempatLahir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel6)
-                            .addComponent(textField_TempatLahir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(button_Tambah)
-                    .addComponent(button_Ubah)
-                    .addComponent(button_Hapus)
-                    .addComponent(button_Simpan)
-                    .addComponent(button_Batal)
-                    .addComponent(button_Keluar))
+                            .addComponent(button_Tambah)
+                            .addComponent(button_Ubah)
+                            .addComponent(button_Hapus)
+                            .addComponent(button_Simpan)
+                            .addComponent(button_Batal)
+                            .addComponent(button_Keluar)))
+                    .addComponent(textField_TanggalLahir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 13, Short.MAX_VALUE))
         );
 
@@ -403,6 +433,7 @@ public class frame_mahasiswa extends javax.swing.JFrame {
         textField_NIM.requestFocus();
         button_Ubah.setEnabled(false);
         button_Hapus.setEnabled(false);
+        button_Tambah.setEnabled(false);
         button_Simpan.setEnabled(true);
         button_Keluar.setEnabled(false);
         aktif_teks();
@@ -411,7 +442,11 @@ public class frame_mahasiswa extends javax.swing.JFrame {
     private void button_SimpanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_button_SimpanMouseClicked
         // TODO add your handling code here:
         String data[]=new String[5];
-        if ((textField_NIM.getText().isEmpty()) || (textField_TanggalLahir.getText().isEmpty())) {
+        SimpleDateFormat f=new SimpleDateFormat("yyyy-MM-dd");
+        String tanggallahir = String.valueOf(f.format(textField_TanggalLahir.getDate()));
+        if ((textField_NIM.getText().isEmpty()) || (textField_Nama.getText().isEmpty()) || 
+                (textField_TempatLahir.getText().isEmpty()) || (tanggallahir.isEmpty()) || 
+                (textArea_Alamat.getText().isEmpty())) {
             JOptionPane.showMessageDialog(null,
                             "Data Tidak Boleh Kosong, Silahkan Dilengkapi!");
             textField_NIM.requestFocus();
@@ -429,23 +464,23 @@ public class frame_mahasiswa extends javax.swing.JFrame {
                                 + "( '"+textField_NIM.getText()+"',"
                                 + "'"+textField_Nama.getText()+" ' ,"
                                 + "'"+textField_TempatLahir.getText()+" ',"
-                                + "'"+textField_TanggalLahir.getText()+" ',"
+                                + "'"+tanggallahir+" ',"
                                 + "'"+textArea_Alamat.getText()+" ')";
                 
                 stt.executeUpdate(SQL);
                 data[0] = textField_NIM.getText();
                 data[1] = textField_Nama.getText();
                 data[2] = textField_TempatLahir.getText();
-                data[3] = textField_TanggalLahir.getText();
+                data[3] = tanggallahir;
                 data[4] = textArea_Alamat.getText();
                 tableModel.insertRow(0, data);
                 stt.close();
                 kon.close();
                 membersihkan_teks();
                 button_Tambah.setEnabled(true);
-                button_Ubah.setEnabled(true);
-                button_Hapus.setEnabled(true);
-                button_Simpan.setEnabled(true);
+                button_Ubah.setEnabled(false);
+                button_Hapus.setEnabled(false);
+                button_Simpan.setEnabled(false);
                 button_Batal.setEnabled(true);
                 button_Keluar.setEnabled(true);
                 nonaktif_teks();
@@ -470,10 +505,11 @@ public class frame_mahasiswa extends javax.swing.JFrame {
         String NIM = textField_NIM.getText();
         String Nama = textField_Nama.getText();
         String TempatLahir = textField_TempatLahir.getText();
-        String TanggalLahir = textField_TanggalLahir.getText();
+        SimpleDateFormat f=new SimpleDateFormat("yyyy-MM-dd");
+        String tanggallahir = String.valueOf(f.format(textField_TanggalLahir.getDate()));
         String Alamat = textArea_Alamat.getText();
         
-        if ((NIM.isEmpty()) | (Alamat.isEmpty())) {
+        if ((NIM.isEmpty()) || (Nama.isEmpty()) || (TempatLahir.isEmpty()) || (tanggallahir.isEmpty()) || (Alamat.isEmpty())) {
             JOptionPane.showMessageDialog(null, "Data Tidak Boleh Kosong, Silahkan Dilengkapi!");
             textField_NIM.requestFocus();
         } else {
@@ -485,7 +521,7 @@ public class frame_mahasiswa extends javax.swing.JFrame {
                                 + "SET `nim`='"+NIM+"',"
                                 + "`nama`='"+Nama+"',"
                                 + "`tempat_lahir`='"+TempatLahir+"',"
-                                + "`tgl_lahir`='"+TanggalLahir+"',"
+                                + "`tgl_lahir`='"+tanggallahir+"',"
                                 + "`alamat`='"+Alamat+"' "
                             + "WHERE "
                             + "`nim`='"+tableModel.getValueAt(row, 0).toString()+"';";
@@ -493,7 +529,7 @@ public class frame_mahasiswa extends javax.swing.JFrame {
                 data[0] = NIM;
                 data[1] = Nama;
                 data[2] = TempatLahir;
-                data[3] = TanggalLahir;
+                data[3] = tanggallahir;
                 data[4] = Alamat;
                 tableModel.removeRow(row);
                 tableModel.insertRow(row, data);
@@ -501,6 +537,10 @@ public class frame_mahasiswa extends javax.swing.JFrame {
                 kon.close();
                 membersihkan_teks();
                 button_Simpan.setEnabled(false);
+                button_Tambah.setEnabled(true);
+                button_Ubah.setEnabled(false);
+                button_Hapus.setEnabled(false);
+                button_Keluar.setEnabled(true);
                 nonaktif_teks();
             } catch (Exception ex) {
                 System.err.println(ex.getMessage());
@@ -520,7 +560,13 @@ public class frame_mahasiswa extends javax.swing.JFrame {
             tableModel.removeRow(row);
             stt.close();
             kon.close();
+            button_Simpan.setEnabled(false);
+            button_Hapus.setEnabled(false);
+            button_Ubah.setEnabled(false);
+            button_Tambah.setEnabled(true);
+            button_Keluar.setEnabled(true);
             membersihkan_teks();
+            nonaktif_teks();
         } catch (Exception ex) {
             System.err.println(ex.getMessage());
         }
@@ -543,12 +589,72 @@ public class frame_mahasiswa extends javax.swing.JFrame {
         // TODO add your handling code here:
         membersihkan_teks();
         button_Tambah.setEnabled(true);
-        button_Ubah.setEnabled(true);
-        button_Hapus.setEnabled(true);
-        button_Simpan.setEnabled(true);
+        button_Ubah.setEnabled(false);
+        button_Hapus.setEnabled(false);
+        button_Simpan.setEnabled(false);
         button_Batal.setEnabled(true);
         button_Keluar.setEnabled(true);
+        nonaktif_teks();
     }//GEN-LAST:event_button_BatalMouseClicked
+
+    private void button_HapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_HapusActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_button_HapusActionPerformed
+
+    private void textField_MasukkanDataKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textField_MasukkanDataKeyReleased
+        // TODO add your handling code here:
+      if (textField_MasukkanData.getText().isEmpty()) {
+          tableModel.setRowCount(0);
+          settableload();
+      } else {
+        // menghapus seluruh isi data di dalam jtable
+        tableModel.setRowCount(0);
+        // gunakan query untuk mencari
+        try
+        {
+            Class.forName(driver);
+            Connection kon = DriverManager.getConnection(
+                             database,
+                             user,
+                             pass);
+            Statement stt = kon.createStatement();
+            String SQL = "select * from t_mahasiswa where nama like '%"+textField_MasukkanData.getText()+"%'";
+            ResultSet res = stt.executeQuery(SQL);
+            while(res.next())
+            {
+                data[0] = res.getString(1);
+                data[1] = res.getString(2);
+                data[2] = res.getString(3);
+                data[3] = res.getString(4);
+                data[4] = res.getString(5);
+                tableModel.addRow(data);
+            }
+            res.close();
+            stt.close();
+            kon.close();
+        }
+        catch (Exception ex)
+        {
+            System.err.println(ex.getMessage());
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error",
+                    JOptionPane.INFORMATION_MESSAGE);
+            System.exit(0);
+        }
+      }
+    }//GEN-LAST:event_textField_MasukkanDataKeyReleased
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+        nonaktif_teks();
+        button_Tambah.setEnabled(true);
+        button_Simpan.setEnabled(false);
+        button_Ubah.setEnabled(false);
+        button_Hapus.setEnabled(false);
+    }//GEN-LAST:event_formWindowOpened
+
+    private void button_BatalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_BatalActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_button_BatalActionPerformed
 
     /**
      * @param args the command line arguments
@@ -612,7 +718,7 @@ public class frame_mahasiswa extends javax.swing.JFrame {
     private javax.swing.JTextField textField_MasukkanData;
     private javax.swing.JTextField textField_NIM;
     private javax.swing.JTextField textField_Nama;
-    private javax.swing.JTextField textField_TanggalLahir;
+    private com.toedter.calendar.JDateChooser textField_TanggalLahir;
     private javax.swing.JTextField textField_TempatLahir;
     // End of variables declaration//GEN-END:variables
 }

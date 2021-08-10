@@ -77,11 +77,13 @@
                                       </Group>
                                       <EmptySpace min="-2" pref="140" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="textField_UTS" min="-2" pref="53" max="-2" attributes="0"/>
                                           <Component id="textField_KodeMataKuliah" max="32767" attributes="0"/>
                                           <Component id="comboBox_NamaMataKuliah" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="textField_Angkatan" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="textField_UAS" alignment="0" max="32767" attributes="0"/>
+                                          <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                                              <Component id="textField_Angkatan" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="textField_UAS" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="textField_UTS" alignment="0" pref="53" max="32767" attributes="0"/>
+                                          </Group>
                                       </Group>
                                   </Group>
                                   <Group type="102" attributes="0">

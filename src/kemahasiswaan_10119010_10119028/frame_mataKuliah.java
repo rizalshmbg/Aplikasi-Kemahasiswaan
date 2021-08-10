@@ -119,6 +119,8 @@ public class frame_mataKuliah extends javax.swing.JFrame {
         button_Hapus.setEnabled(true);
         button_Simpan.setEnabled(false);
         button_Batal.setEnabled(true);
+        button_Tambah.setEnabled(false);
+        button_Keluar.setEnabled(false);
         aktif_teks();
     }
 
@@ -158,6 +160,9 @@ public class frame_mataKuliah extends javax.swing.JFrame {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 formWindowClosed(evt);
             }
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
         });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
@@ -185,6 +190,12 @@ public class frame_mataKuliah extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel3.setText("Masukkan Data");
+
+        textField_MasukkanData.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                textField_MasukkanDataKeyReleased(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel4.setText("Nomor Mata Kuliah");
@@ -344,6 +355,7 @@ public class frame_mataKuliah extends javax.swing.JFrame {
         button_Hapus.setEnabled(false);
         button_Simpan.setEnabled(true);
         button_Keluar.setEnabled(false);
+        button_Tambah.setEnabled(false);
         aktif_teks();
     }//GEN-LAST:event_button_TambahMouseClicked
 
@@ -373,9 +385,9 @@ public class frame_mataKuliah extends javax.swing.JFrame {
                 kon.close();
                 membersihkan_teks();
                 button_Tambah.setEnabled(true);
-                button_Ubah.setEnabled(true);
-                button_Hapus.setEnabled(true);
-                button_Simpan.setEnabled(true);
+                button_Ubah.setEnabled(false);
+                button_Hapus.setEnabled(false);
+                button_Simpan.setEnabled(false);
                 button_Batal.setEnabled(true);
                 button_Keluar.setEnabled(true);
                 nonaktif_teks();
@@ -422,6 +434,10 @@ public class frame_mataKuliah extends javax.swing.JFrame {
                 kon.close();
                 membersihkan_teks();
                 button_Simpan.setEnabled(false);
+                button_Tambah.setEnabled(true);
+                button_Ubah.setEnabled(false);
+                button_Hapus.setEnabled(false);
+                button_Keluar.setEnabled(true);
                 nonaktif_teks();
             } catch (Exception ex) {
                 System.err.println(ex.getMessage());
@@ -441,7 +457,13 @@ public class frame_mataKuliah extends javax.swing.JFrame {
             tableModel.removeRow(row);
             stt.close();
             kon.close();
+            button_Simpan.setEnabled(false);
+            button_Hapus.setEnabled(false);
+            button_Ubah.setEnabled(false);
+            button_Tambah.setEnabled(true);
+            button_Keluar.setEnabled(true);
             membersihkan_teks();
+            nonaktif_teks();
         } catch (Exception ex) {
             System.err.println(ex.getMessage());
         }
@@ -464,12 +486,61 @@ public class frame_mataKuliah extends javax.swing.JFrame {
         // TODO add your handling code here:
         membersihkan_teks();
         button_Tambah.setEnabled(true);
-        button_Ubah.setEnabled(true);
-        button_Hapus.setEnabled(true);
-        button_Simpan.setEnabled(true);
+        button_Ubah.setEnabled(false);
+        button_Hapus.setEnabled(false);
+        button_Simpan.setEnabled(false);
         button_Batal.setEnabled(true);
         button_Keluar.setEnabled(true);
+        nonaktif_teks();
     }//GEN-LAST:event_button_BatalMouseClicked
+
+    private void textField_MasukkanDataKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textField_MasukkanDataKeyReleased
+        // TODO add your handling code here:
+        if (textField_MasukkanData.getText().isEmpty()) {
+          tableModel.setRowCount(0);
+          settableload();
+      } else {
+        // menghapus seluruh isi data di dalam jtable
+        tableModel.setRowCount(0);
+        // gunakan query untuk mencari
+        try
+        {
+            Class.forName(driver);
+            Connection kon = DriverManager.getConnection(
+                             database,
+                             user,
+                             pass);
+            Statement stt = kon.createStatement();
+            String SQL = "select * from t_mata_kuliah where nama_mk like '%"+textField_MasukkanData.getText()+"%'";
+            ResultSet res = stt.executeQuery(SQL);
+            while(res.next())
+            {
+                data[0] = res.getString(1);
+                data[1] = res.getString(2);
+                tableModel.addRow(data);
+            }
+            res.close();
+            stt.close();
+            kon.close();
+        }
+        catch (Exception ex)
+        {
+            System.err.println(ex.getMessage());
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error",
+                    JOptionPane.INFORMATION_MESSAGE);
+            System.exit(0);
+        }
+      }
+    }//GEN-LAST:event_textField_MasukkanDataKeyReleased
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+        nonaktif_teks();
+        button_Tambah.setEnabled(true);
+        button_Simpan.setEnabled(false);
+        button_Ubah.setEnabled(false);
+        button_Hapus.setEnabled(false);
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments

@@ -123,6 +123,11 @@ public class frame_utama extends javax.swing.JFrame {
                 btn_SimulasiKasusMouseClicked(evt);
             }
         });
+        btn_SimulasiKasus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_SimulasiKasusActionPerformed(evt);
+            }
+        });
         jToolBar1.add(btn_SimulasiKasus);
         jToolBar1.add(jSeparator5);
 
@@ -278,6 +283,13 @@ public class frame_utama extends javax.swing.JFrame {
         frame_login frame_login = new frame_login();
         frame_login.setVisible(true);
     }//GEN-LAST:event_formWindowClosed
+
+    private void btn_SimulasiKasusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_SimulasiKasusActionPerformed
+        // TODO add your handling code here:
+        frame_simulasiKasus kasus = new frame_simulasiKasus();
+        kasus.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btn_SimulasiKasusActionPerformed
 
     /**
      * @param args the command line arguments
